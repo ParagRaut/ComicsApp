@@ -1,5 +1,6 @@
 # ComicsApp
-With this small app you can browse random comics from sources like Garfield, XKCD and Dilbert. This app is implemented in .Net Core Blazor (ASP Core Hosted Model)
+With this small app you can browse random comics from sources like Garfield, XKCD and Dilbert. 
+This app is implemented in .Net Core Blazor (ASP Core Hosted Model)
 
 
 To build/run this, you need to have .netcore 3.1.201 or higher installed
@@ -14,7 +15,7 @@ After cloning project goto root directory i.e. “ComicsApp" and run
 
 Then goto project directory i.e. “ComicsApp/ComicsApp” and run
 
-2) dotnet run
+2) dotnet run --project Server
 
 Goto this address on web browser of your choice <br/>
 
