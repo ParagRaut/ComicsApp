@@ -1,0 +1,25 @@
+﻿@page "/comicsviewer"
+@inject HttpClient Http
+
+<h5>Click to see random comic strip</h5>
+<br />
+<div>
+    <button type="button" class="btn btn-primary" @onclick="GetRandomComic">Get Comic Strip</button>
+</div>
+
+<br />
+<div class="col-md-12 d-flex justify-content-center mb-5">
+    <img src="@_fileResult" class="img-fluid" alt="Comic Loading...">
+</div>
+
+
+
+@code {
+
+    private string _fileResult = "images/ComicViewer.jpg";
+
+    protected async Task GetRandomComic()
+    {
+        _fileResult = await Http.GetStringAsync("Comics");
+    }
+}
