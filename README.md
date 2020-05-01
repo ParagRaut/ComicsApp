@@ -3,6 +3,7 @@ With this small app you can browse random comics from sources like Garfield, XKC
 
 
 To build/run this, you need to have .netcore 3.1.201 or higher installed
+
 Visit following url to download appropriate .netcore sdk version <br/>
 
 URL: https://dotnet.microsoft.com/download/dotnet-core
