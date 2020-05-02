@@ -28,7 +28,7 @@ namespace ComicsApp.Server.Controllers
         [Route("[controller]/dilbert")]
         public string GetDilbert()
         {
-            this._logger.LogInformation("Fetching random comic...");
+            this._logger.LogInformation("Fetching dilbert comic...");
             return this.ComicUrlService.GetDilbertComic();
         }
 
@@ -36,7 +36,7 @@ namespace ComicsApp.Server.Controllers
         [Route("[controller]/garfield")]
         public string GetGarfield()
         {
-            this._logger.LogInformation("Fetching random comic...");
+            this._logger.LogInformation("Fetching garfield comic...");
             return this.ComicUrlService.GetGarfieldComic();
         }
 
@@ -44,7 +44,7 @@ namespace ComicsApp.Server.Controllers
         [Route("[controller]/xkcd")]
         public string GetXkcd()
         {
-            this._logger.LogInformation("Fetching random comic...");
+            this._logger.LogInformation("Fetching xkcd comic...");
             return this.ComicUrlService.GetXkcdComic();
         }
     }
