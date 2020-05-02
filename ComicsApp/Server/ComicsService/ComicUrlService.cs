@@ -38,13 +38,13 @@ namespace ComicsApp.Server.ComicsService
             switch (comicName)
             {
                 case ComicEnum.Garfield:
-                    this.ComicImageUri = this.GetGarfieldComic();
+                    this.ComicImageUri = this.GetGarfieldComicUri();
                     break;
                 case ComicEnum.Xkcd:
-                    this.ComicImageUri = this.GetXkcdComic();
+                    this.ComicImageUri = this.GetXkcdComicUri();
                     break;
                 case ComicEnum.Dilbert:
-                    this.ComicImageUri = this.GetDilbertComic();
+                    this.ComicImageUri = this.GetDilbertComicUri();
                     break;
                 default:
                     this._logger.LogInformation("Argument exception is thrown");
@@ -62,22 +62,37 @@ namespace ComicsApp.Server.ComicsService
             return (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
         }
 
-        private string GetXkcdComic()
+        private string GetXkcdComicUri()
         {
             this.ComicImageUri = this.XkcdComicsService.GetXkcdComicUri();
             return this.ComicImageUri;
         }
 
-        private string GetGarfieldComic()
+        private string GetGarfieldComicUri()
         {
             this.ComicImageUri = this.GarfieldComicsService.GetGarfieldComicUri();
             return this.ComicImageUri;
         }
 
-        private string GetDilbertComic()
+        private string GetDilbertComicUri()
         {
             this.ComicImageUri = this.DilbertComicsService.GetDilbertComicUri();
             return this.ComicImageUri;
+        }
+
+        public string GetDilbertComic()
+        {
+            return this.GetDilbertComicUri();
+        }
+
+        public string GetGarfieldComic()
+        {
+            return this.GetGarfieldComicUri();
+        }
+
+        public string GetXkcdComic()
+        {
+            return this.GetXkcdComicUri();
         }
     }
 

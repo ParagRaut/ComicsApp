@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 namespace ComicsApp.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class ComicsController : ControllerBase
     {
         public ComicsController(IComicUrlService comicService, ILogger<ComicsController> logger)
@@ -18,10 +17,35 @@ namespace ComicsApp.Server.Controllers
         private readonly ILogger _logger;
 
         [HttpGet]
-        public string Get()
+        [Route("[controller]/random")]
+        public string GetRandom()
         {
             this._logger.LogInformation("Fetching random comic...");
             return this.ComicUrlService.GetRandomComic();
+        }
+
+        [HttpGet]
+        [Route("[controller]/dilbert")]
+        public string GetDilbert()
+        {
+            this._logger.LogInformation("Fetching random comic...");
+            return this.ComicUrlService.GetDilbertComic();
+        }
+
+        [HttpGet]
+        [Route("[controller]/garfield")]
+        public string GetGarfield()
+        {
+            this._logger.LogInformation("Fetching random comic...");
+            return this.ComicUrlService.GetGarfieldComic();
+        }
+
+        [HttpGet]
+        [Route("[controller]/xkcd")]
+        public string GetXkcd()
+        {
+            this._logger.LogInformation("Fetching random comic...");
+            return this.ComicUrlService.GetXkcdComic();
         }
     }
 }

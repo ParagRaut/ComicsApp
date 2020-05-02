@@ -1,0 +1,25 @@
+﻿@page "/dilbertcomicsviewer"
+@inject HttpClient Http
+
+<h5>Click to see Dilbert comic strip</h5>
+<br />
+<div>
+    <button type="button" class="btn btn-primary" @onclick="GetDilbertComic">Get Comic Strip</button>
+</div>
+
+<br />
+<div class="col-md-12 d-flex justify-content-center mb-5">
+    <img src="@_fileResult" class="img-fluid" alt="Comic Loading...">
+</div>
+
+
+
+@code {
+
+    private string _fileResult = "images/dilbert.png";
+
+    protected async Task GetDilbertComic()
+    {
+        _fileResult = await Http.GetStringAsync("Comics/dilbert");
+    }
+}

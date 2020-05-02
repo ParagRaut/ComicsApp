@@ -1,4 +1,4 @@
-﻿@page "/comicsviewer"
+﻿@page "/randomcomicsviewer"
 @inject HttpClient Http
 
 <h5>Click to see random comic strip</h5>
@@ -16,10 +16,10 @@
 
 @code {
 
-    private string _fileResult = "images/ComicViewer.jpg";
+    private string _fileResult = "images/comics.jpg";
 
     protected async Task GetRandomComic()
     {
-        _fileResult = await Http.GetStringAsync("Comics");
+        _fileResult = await Http.GetStringAsync("Comics/dilbert");
     }
 }
