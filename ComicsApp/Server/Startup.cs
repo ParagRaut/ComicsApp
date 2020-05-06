@@ -53,8 +53,6 @@ namespace ComicsApp.Server
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.UseAuthentication();
-
             loggerFactory.AddFile("Logs/ComicsApiLog-{Date}.log", LogLevel.Debug);
 
             if (env.IsDevelopment())
