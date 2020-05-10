@@ -1,19 +1,35 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="ComicsApp" />
+
     <title>ComicsApp</title>
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="collect/add-to-homescreen/style/addtohomescreen.css" rel="stylesheet" />
+    <link href="_content/Radzen.Blazor/css/default-base.css" rel="stylesheet">
     <link href="manifest.json" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
-    <app>Loading...</app>
+    <app>
+
+        <div class="spinner">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+        </div>
+
+    </app>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -22,6 +38,17 @@
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="collect/add-to-homescreen/src/addtohomescreen.js"></script>
+    <script>
+        if (
+            (("standalone" in window.navigator) && !window.navigator.standalone) ||
+            (!window.matchMedia('(display-mode: standalone)').matches)
+        ) {
+            addToHomescreen();
+        }
+
+    </script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
 </body>
 
 </html>

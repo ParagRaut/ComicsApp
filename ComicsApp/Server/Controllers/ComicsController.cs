@@ -1,4 +1,5 @@
-﻿using ComicsApp.Server.ComicsService;
+﻿using System.Threading.Tasks;
+using ComicsApp.Server.ComicsService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +19,7 @@ namespace ComicsApp.Server.Controllers
 
         [HttpGet]
         [Route("[controller]/random")]
-        public string GetRandom()
+        public Task<string> GetRandom()
         {
             this._logger.LogInformation("Fetching random comic...");
             return this.ComicUrlService.GetRandomComic();
@@ -26,7 +27,7 @@ namespace ComicsApp.Server.Controllers
 
         [HttpGet]
         [Route("[controller]/dilbert")]
-        public string GetDilbert()
+        public Task<string> GetDilbert()
         {
             this._logger.LogInformation("Fetching dilbert comic...");
             return this.ComicUrlService.GetDilbertComic();
@@ -34,7 +35,7 @@ namespace ComicsApp.Server.Controllers
 
         [HttpGet]
         [Route("[controller]/garfield")]
-        public string GetGarfield()
+        public Task<string> GetGarfield()
         {
             this._logger.LogInformation("Fetching garfield comic...");
             return this.ComicUrlService.GetGarfieldComic();
@@ -42,7 +43,7 @@ namespace ComicsApp.Server.Controllers
 
         [HttpGet]
         [Route("[controller]/xkcd")]
-        public string GetXkcd()
+        public Task<string> GetXkcd()
         {
             this._logger.LogInformation("Fetching xkcd comic...");
             return this.ComicUrlService.GetXkcdComic();

@@ -2,16 +2,22 @@
 @inject HttpClient Http
 
 <h5>Click to see random comic strip</h5>
+
 <br />
+
 <div>
-    <button type="button" class="btn btn-primary" @onclick="GetRandomComic">Get Comic Strip</button>
+    <RadzenButton Click="@GetRandomComic" Text="Get Comic Strip"/>
 </div>
 
 <br />
-<div class="col-md-12 d-flex justify-content-center mb-5">
-    <img src="@_fileResult" class="img-fluid" alt="Comic Loading...">
-</div>
 
+<RadzenCard>
+    <div class="embed-responsive">
+        <picture>
+            <img src="@_fileResult" class="img-fluid" alt="Comic Loading...">
+        </picture>
+    </div>
+</RadzenCard>
 
 
 @code {
@@ -20,6 +26,6 @@
 
     protected async Task GetRandomComic()
     {
-        _fileResult = await Http.GetStringAsync("Comics/dilbert");
+        _fileResult = await Http.GetStringAsync("Comics/random");
     }
 }

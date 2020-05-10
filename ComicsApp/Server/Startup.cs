@@ -9,7 +9,6 @@ using ComicsApp.Server.ComicsService.ComicSources.DilbertComics;
 using ComicsApp.Server.ComicsService.ComicSources.GarfieldComics;
 using ComicsApp.Server.ComicsService.ComicSources.XKCD;
 using Microsoft.Extensions.Logging;
-using RandomComicApi.ComicServices.ComicSources.XKCD;
 using Microsoft.AspNetCore.HttpOverrides;
 
 namespace ComicsApp.Server
@@ -42,7 +41,6 @@ namespace ComicsApp.Server
             services.AddSingleton<IGarfieldComics, GarfieldComics>();
             services.AddSingleton<IDilbertComics, DilbertComics>();
             services.AddSingleton<IComicUrlService, ComicUrlService>();
-            services.AddSingleton<IComicService, ComicService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

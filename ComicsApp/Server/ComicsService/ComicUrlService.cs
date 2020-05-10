@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using ComicsApp.Server.ComicsService.ComicSources;
 using ComicsApp.Server.ComicsService.ComicSources.DilbertComics;
 using ComicsApp.Server.ComicsService.ComicSources.GarfieldComics;
@@ -13,7 +14,7 @@ namespace ComicsApp.Server.ComicsService
         public ComicUrlService([NotNull] IXkcdComic xkcdComic,
             [NotNull] IGarfieldComics garfieldComics,
             [NotNull] IDilbertComics gDilbertComics,
-            ILogger<ComicService> logger)
+            ILogger<ComicUrlService> logger)
         {
             this.XkcdComicsService = xkcdComic;
             this.GarfieldComicsService = garfieldComics;
@@ -27,24 +28,24 @@ namespace ComicsApp.Server.ComicsService
 
         private IDilbertComics DilbertComicsService { get; }
 
-        private string ComicImageUri { get; set; }
+        private Task<string> ComicImageUri { get; set; }
 
         private readonly ILogger _logger;
 
-        public string GetRandomComic()
+        public Task<string> GetRandomComic()
         {
             ComicEnum comicName = this.ChooseRandomComicSource();
 
             switch (comicName)
             {
                 case ComicEnum.Garfield:
-                    this.ComicImageUri = this.GetGarfieldComicUri();
+                    this.ComicImageUri = this.GetGarfieldComic();
                     break;
                 case ComicEnum.Xkcd:
-                    this.ComicImageUri = this.GetXkcdComicUri();
+                    this.ComicImageUri = this.GetXkcdComic();
                     break;
                 case ComicEnum.Dilbert:
-                    this.ComicImageUri = this.GetDilbertComicUri();
+                    this.ComicImageUri = this.GetDilbertComic();
                     break;
                 default:
                     this._logger.LogInformation("Argument exception is thrown");
@@ -62,37 +63,22 @@ namespace ComicsApp.Server.ComicsService
             return (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
         }
 
-        private string GetXkcdComicUri()
+        public Task<string> GetDilbertComic()
         {
-            this.ComicImageUri = this.XkcdComicsService.GetXkcdComicUri();
-            return this.ComicImageUri;
+            this._logger.LogInformation($"Returning Dilbert comic strip");
+            return this.DilbertComicsService.GetDilbertComicUri();
         }
 
-        private string GetGarfieldComicUri()
+        public Task<string> GetGarfieldComic()
         {
-            this.ComicImageUri = this.GarfieldComicsService.GetGarfieldComicUri();
-            return this.ComicImageUri;
+            this._logger.LogInformation($"Returning Garfield comic strip");
+            return this.GarfieldComicsService.GetGarfieldComicUri();
         }
 
-        private string GetDilbertComicUri()
+        public Task<string> GetXkcdComic()
         {
-            this.ComicImageUri = this.DilbertComicsService.GetDilbertComicUri();
-            return this.ComicImageUri;
-        }
-
-        public string GetDilbertComic()
-        {
-            return this.GetDilbertComicUri();
-        }
-
-        public string GetGarfieldComic()
-        {
-            return this.GetGarfieldComicUri();
-        }
-
-        public string GetXkcdComic()
-        {
-            return this.GetXkcdComicUri();
+            this._logger.LogInformation($"Returning XKCD comic strip");
+            return this.XkcdComicsService.GetXkcdComicUri();
         }
     }
 
