@@ -16,10 +16,10 @@ namespace ComicsApp.Server.ComicsService
             [NotNull] IDilbertComics dilbertComics,
             ILogger<ComicUrlService> logger)
         {
-            XkcdComicsService = xkcdComic;
-            GarfieldComicsService = garfieldComics;
-            DilbertComicsService = dilbertComics;
-            _logger = logger;
+            this.XkcdComicsService = xkcdComic;
+            this.GarfieldComicsService = garfieldComics;
+            this.DilbertComicsService = dilbertComics;
+            this._logger = logger;
         }
 
         private IXkcdComic XkcdComicsService { get; }
@@ -34,27 +34,25 @@ namespace ComicsApp.Server.ComicsService
 
         public Task<string> GetRandomComic()
         {
-            ComicEnum comicName = ChooseRandomComicSource();
+            ComicEnum comicName = this.ChooseRandomComicSource();
 
             switch (comicName)
             {
                 case ComicEnum.Garfield:
-                    ComicImageUri = GetGarfieldComic();
+                    this.ComicImageUri = this.GetGarfieldComic();
                     break;
                 case ComicEnum.Xkcd:
-                    ComicImageUri = GetXkcdComic();
+                    this.ComicImageUri = this.GetXkcdComic();
                     break;
                 case ComicEnum.Dilbert:
-                    ComicImageUri = GetDilbertComic();
+                    this.ComicImageUri = this.GetDilbertComic();
                     break;
                 default:
-                    _logger.LogInformation("Argument exception is thrown");
+                    this._logger.LogInformation("Argument exception is thrown");
                     throw new ArgumentOutOfRangeException();
             }
 
-            _logger.LogInformation($"Returning {comicName} comic strip");
-
-            return ComicImageUri;
+            return this.ComicImageUri;
         }
 
         private ComicEnum ChooseRandomComicSource()
@@ -65,24 +63,21 @@ namespace ComicsApp.Server.ComicsService
 
         public Task<string> GetDilbertComic()
         {
-            _logger.LogInformation($"Returning Dilbert comic strip");
-            return DilbertComicsService.GetDilbertComicUri();
+            this._logger.LogInformation($"Returning Dilbert comic strip");
+            return this.DilbertComicsService.GetDilbertComicUri();
         }
 
         public Task<string> GetGarfieldComic()
         {
-            _logger.LogInformation($"Returning Garfield comic strip");
+            this._logger.LogInformation($"Returning Garfield comic strip");
 
-            return Task.Run(() =>
-            {
-                return GarfieldComicsService.GetGarfieldComicUri();
-            });
+            return Task.Run(() => this.GarfieldComicsService.GetGarfieldComicUri());
         }
 
         public Task<string> GetXkcdComic()
         {
-            _logger.LogInformation($"Returning XKCD comic strip");
-            return XkcdComicsService.GetXkcdComicUri();
+            this._logger.LogInformation($"Returning XKCD comic strip");
+            return this.XkcdComicsService.GetXkcdComicUri();
         }
     }
 }

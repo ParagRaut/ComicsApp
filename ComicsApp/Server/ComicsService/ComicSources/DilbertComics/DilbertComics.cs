@@ -7,11 +7,9 @@ namespace ComicsApp.Server.ComicsService.ComicSources.DilbertComics
     {
         public async Task<string> GetDilbertComicUri()
         {
-            DilbertServiceApi dilbertServiceApi = new DilbertServiceApi();
+            var dilbertServiceApi = new DilbertServiceApi();
 
             string comicStripUri = await dilbertServiceApi.GetDilbertComicsUrl();
-
-            comicStripUri = $"https:{comicStripUri}.png";
 
             return comicStripUri;
         }

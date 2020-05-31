@@ -9,7 +9,7 @@ namespace ComicsApp.Server.ComicsService.ComicSources.DilbertComics.DilbertServi
     {
         public async Task<string> GetDilbertComicsUrl()
         {
-            var dateRange = GetRandomDateRange();
+            string dateRange = this.GetRandomDateRange();
 
             var baseUrl = new Uri($"https://dilbert.com/strip/{dateRange}");
 
@@ -17,36 +17,39 @@ namespace ComicsApp.Server.ComicsService.ComicSources.DilbertComics.DilbertServi
 
             string source = await httpClient.GetStringAsync(baseUrl);
 
-            var imageLink = GetUri(source);
+            string imageLink = this.GetUri(source);
 
             return imageLink;
         }
 
         private string GetUri(string source)
         {
-            HtmlDocument document = new HtmlDocument();
+            var document = new HtmlDocument();
 
             document.LoadHtml(source);
 
-            string imageClassNode = "//img[contains(@class, 'img-comic')]";
+            const string imageClassNode = "//img[contains(@class, 'img-comic')]";
 
-            var imageNode = document.DocumentNode.SelectNodes(imageClassNode);
+            HtmlNodeCollection imageNode = document.DocumentNode.SelectNodes(imageClassNode);
 
-            string imageLink = string.Empty;
+            var imageLink = string.Empty;
 
             foreach (HtmlNode link in imageNode)
             {
                 imageLink = link.GetAttributeValue("src", "");
             }
+
+            imageLink = $"https:{imageLink}.png";
+
             return imageLink;
         }
 
         private string GetRandomDateRange()
         {
-            Random gen = new Random();
-            DateTime start = new DateTime(1989, 4, 16);
-            int range = (DateTime.Today - start).Days;
-            return start.AddDays(gen.Next(range)).ToString("yyyy-MM-dd");
+            var random = new Random();
+            var startDate = new DateTime(1989, 4, 16);
+            int dateRange = (DateTime.Today - startDate).Days;
+            return startDate.AddDays(random.Next(dateRange)).ToString("yyyy-MM-dd");
         }
     }
 }
