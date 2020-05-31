@@ -6,16 +6,14 @@
 <br />
 
 <div>
-    <RadzenButton Click="@GetGarfieldComic" Text="Get Comic Strip"/>
+    <RadzenButton Click="@GetGarfieldComic" Text="Get Comic Strip" />
 </div>
 
 <br />
 
-<RadzenCard Style="padding: 5px;">
-    <picture>
-        <img src="@_fileResult" class="img-fluid" alt="Comic Loading...">
-    </picture>
-</RadzenCard>
+<picture>
+    <img src="@_fileResult" class="img-thumbnail" alt="Comic Loading...">
+</picture>
 
 
 @code {

@@ -13,10 +13,10 @@ namespace ComicsApp.Server.ComicsService.ComicSources.XKCD
         }
 
         private IXKCD XkcdService { get; }
-        
+
         public async Task<string> GetXkcdComicUri()
         {
-            int comicId = await this.GetRandomComicNumber();
+            var comicId = await this.GetRandomComicNumber();
 
             string comicImageUri = await this.GetImageUri(comicId);
             
@@ -33,7 +33,7 @@ namespace ComicsApp.Server.ComicsService.ComicSources.XKCD
 
         private async Task<int> GetRandomComicNumber()
         {
-            int maxId = await this.GetLatestComicId();
+            var maxId = await this.GetLatestComicId();
             var randomNumber = new Random();
             return randomNumber.Next(maxId);
         }
