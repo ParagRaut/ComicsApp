@@ -8,6 +8,6 @@ namespace ComicsApp.Server.ComicsService
         Task<string> GetDilbertComic();
         Task<string> GetGarfieldComic();
         Task<string> GetXkcdComic();
-        Task<string> GetCalvinAndHobbsComic();
+        Task<string> GetCalvinAndHobbesComic();
     }
 }

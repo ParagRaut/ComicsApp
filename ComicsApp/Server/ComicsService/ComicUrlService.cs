@@ -52,7 +52,7 @@ namespace ComicsApp.Server.ComicsService
                     this.ComicImageUri = this.GetDilbertComic();
                     break;
                 case ComicEnum.CalvinAndHobbes:
-                    this.ComicImageUri = this.GetCalvinAndHobbsComic();
+                    this.ComicImageUri = this.GetCalvinAndHobbesComic();
                     break;
                 default:
                     this._logger.LogInformation("Argument exception is thrown");
@@ -87,7 +87,7 @@ namespace ComicsApp.Server.ComicsService
             return this.XkcdComicsService.GetXkcdComicUri();
         }
 
-        public Task<string> GetCalvinAndHobbsComic()
+        public Task<string> GetCalvinAndHobbesComic()
         {
             this._logger.LogInformation($"Returning Calvin and Hobbes comic strip");
             return this.CalvinAndHobbesComicsService.CalvinAndHobbesComicUri();

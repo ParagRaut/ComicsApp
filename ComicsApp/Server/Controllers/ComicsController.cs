@@ -51,10 +51,10 @@ namespace ComicsApp.Server.Controllers
 
         [HttpGet]
         [Route("[controller]/calvinandhobbes")]
-        public Task<string> GetCalvinAndHobbsComic()
+        public Task<string> GetCalvinAndHobbesComic()
         {
             this._logger.LogInformation($"Fetching Calvin and Hobbes comic strip");
-            return this.ComicUrlService.GetCalvinAndHobbsComic();
+            return this.ComicUrlService.GetCalvinAndHobbesComic();
         }
     }
 }
