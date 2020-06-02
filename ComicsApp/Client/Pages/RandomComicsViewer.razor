@@ -11,17 +11,32 @@
 
 <br />
 
-<picture>
-    <img src="@_fileResult" class="img-thumbnail" alt="Comic Loading...">
-</picture>
+<SpinLoader IsLoading="_isLoading">
+    <LoadingTemplate>
+        <div class="col-12" style="background-color: transparent; vertical-align: middle"></div>
+        <br />
+        <br />
+        <Swing Center="true" Size="100px"></Swing>
+    </LoadingTemplate>
+    <ContentTemplate>
+        <picture>
+            <img src="@_fileResult" class="img-thumbnail" alt="Comic Loading...">
+        </picture>
+    </ContentTemplate>
+</SpinLoader>
+
 
 
 @code {
+
+    private bool _isLoading;
 
     private string _fileResult = "images/comics.jpg";
 
     protected async Task GetRandomComic()
     {
+        _isLoading = true;
         _fileResult = await Http.GetStringAsync("Comics/random");
+        _isLoading = false;
     }
 }

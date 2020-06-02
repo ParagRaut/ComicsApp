@@ -48,5 +48,13 @@ namespace ComicsApp.Server.Controllers
             this._logger.LogInformation("Fetching xkcd comic...");
             return this.ComicUrlService.GetXkcdComic();
         }
+
+        [HttpGet]
+        [Route("[controller]/calvinandhobbes")]
+        public Task<string> GetCalvinAndHobbsComic()
+        {
+            this._logger.LogInformation($"Fetching Calvin and Hobbes comic strip");
+            return this.ComicUrlService.GetCalvinAndHobbsComic();
+        }
     }
 }

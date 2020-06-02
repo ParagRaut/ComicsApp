@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Net.Http;
 using ComicsApp.Server.ComicsService;
+using ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
 using ComicsApp.Server.ComicsService.ComicSources.DilbertComics;
 using ComicsApp.Server.ComicsService.ComicSources.GarfieldComics;
 using ComicsApp.Server.ComicsService.ComicSources.XKCD;
@@ -40,6 +41,7 @@ namespace ComicsApp.Server
             services.AddSingleton<IXkcdComic, XkcdComic>();
             services.AddSingleton<IGarfieldComics, GarfieldComics>();
             services.AddSingleton<IDilbertComics, DilbertComics>();
+            services.AddSingleton<ICalvinAndHobbesComics, CalvinAndHobbesComics>();
             services.AddSingleton<IComicUrlService, ComicUrlService>();
         }
 

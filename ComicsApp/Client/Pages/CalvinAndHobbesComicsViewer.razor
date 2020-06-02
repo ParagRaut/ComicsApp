@@ -1,12 +1,13 @@
-﻿@page "/dilbertcomicsviewer"
+﻿@page "/calvinandhobbescomicsviewer"
+
 @inject HttpClient Http
 
-<h5>Click to see Dilbert comic strip</h5>
+<h5>Click to see Calvin and Hobbes comic strip</h5>
 
 <br />
 
 <div>
-    <RadzenButton Click="@GetDilbertComic" Text="Get Comic Strip" />
+    <RadzenButton Click="@GetCalvinAndHobbesComic" Text="Get Comic Strip" />
 </div>
 
 <br />
@@ -25,17 +26,16 @@
     </ContentTemplate>
 </SpinLoader>
 
-
 @code {
 
     private bool _isLoading;
 
-    private string _fileResult = "images/dilbert.png";
+    private string _fileResult = "images/calvinandhobbes.jpg";
 
-    protected async Task GetDilbertComic()
+    private async Task GetCalvinAndHobbesComic()
     {
         _isLoading = true;
-        _fileResult = await Http.GetStringAsync("Comics/dilbert");
+        _fileResult = await Http.GetStringAsync("Comics/calvinandhobbes");
         _isLoading = false;
     }
 }

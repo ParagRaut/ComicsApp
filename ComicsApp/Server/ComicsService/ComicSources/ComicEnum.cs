@@ -5,6 +5,7 @@ namespace ComicsApp.Server.ComicsService.ComicSources
     {
         Garfield,
         Xkcd,
-        Dilbert
+        Dilbert,
+        CalvinAndHobbes
     }
 }
