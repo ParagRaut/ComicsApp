@@ -1,4 +1,5 @@
 ﻿@page "/dilbertcomicsviewer"
+@using Radzen
 @inject HttpClient Http
 
 <h5>Click to see Dilbert comic strip</h5>
@@ -6,7 +7,9 @@
 <br />
 
 <div>
-    <RadzenButton Click="@GetDilbertComic" Text="Get Comic Strip" />
+    <RadzenButton Click="@GetPreviousComic" ButtonStyle="ButtonStyle.Secondary" Icon="chevron_left" Text="  " />
+    <RadzenButton Click="@GetDilbertComic" Text="Random" />
+    <RadzenButton Click="@GetNextComic" ButtonStyle="ButtonStyle.Secondary" Icon="chevron_right" Text="  " />
 </div>
 
 <br />
@@ -32,10 +35,50 @@
 
     private string _fileResult = "images/dilbert.png";
 
+    private IList<string> _imageList;
+
+    private int _currentIndex;
+
+    protected override void OnInitialized()
+    {
+        _imageList = new List<string>
+{
+            "images/dilbert.png"
+        };
+    }
+
     protected async Task GetDilbertComic()
     {
         _isLoading = true;
         _fileResult = await Http.GetStringAsync("Comics/dilbert");
+        _imageList.Add(_fileResult);
         _isLoading = false;
+    }
+
+    private void GetPreviousComic()
+    {
+        _currentIndex = _imageList.IndexOf(_fileResult);
+
+        if (_currentIndex > 0)
+        {
+            _fileResult = _imageList[_currentIndex - 1];
+        }
+    }
+
+    private async Task GetNextComic()
+    {
+        _currentIndex = _imageList.IndexOf(_fileResult);
+
+        int listCount = _imageList.Count;
+
+        if (_currentIndex == listCount - 1)
+        {
+            await this.GetDilbertComic();
+        }
+
+        if (_currentIndex < listCount - 1)
+        {
+            _fileResult = _imageList[_currentIndex + 1];
+        }
     }
 }
