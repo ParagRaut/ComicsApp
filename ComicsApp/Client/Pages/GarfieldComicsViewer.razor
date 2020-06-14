@@ -6,28 +6,29 @@
 
 <br />
 
-<div>
-    <RadzenButton Click="@GetPreviousComic" ButtonStyle="ButtonStyle.Secondary" Icon="chevron_left" Text="  " />
-    <RadzenButton Click="@GetGarfieldComic" Text="Random" />
-    <RadzenButton Click="@GetNextComic" ButtonStyle="ButtonStyle.Secondary" Icon="chevron_right" Text="  " />
+<div class="container">
+    <div style="text-align: center;">
+        <RadzenButton Click="@GetPreviousComic" ButtonStyle="ButtonStyle.Secondary" Icon="chevron_left" Text="  " />
+        <RadzenButton Click="@GetGarfieldComic" Text="Random" />
+        <RadzenButton Click="@GetNextComic" ButtonStyle="ButtonStyle.Secondary" Icon="chevron_right" Text="  " />
+    </div>
+    <br />
+    <div style="text-align: center;">
+        <SpinLoader IsLoading="_isLoading">
+            <LoadingTemplate>
+                <div class="col-12" style="background-color: transparent; vertical-align: middle"></div>
+                <br />
+                <br />
+                <Swing Center="true" Size="100px"></Swing>
+            </LoadingTemplate>
+            <ContentTemplate>
+                <picture>
+                    <img src="@_fileResult" class="img-thumbnail" alt="Comic Loading...">
+                </picture>
+            </ContentTemplate>
+        </SpinLoader>
+    </div>
 </div>
-
-<br />
-
-<SpinLoader IsLoading="_isLoading">
-    <LoadingTemplate>
-        <div class="col-12" style="background-color: transparent; vertical-align: middle"></div>
-        <br />
-        <br />
-        <Swing Center="true" Size="100px"></Swing>
-    </LoadingTemplate>
-    <ContentTemplate>
-        <picture>
-            <img src="@_fileResult" class="img-thumbnail" alt="Comic Loading...">
-        </picture>
-    </ContentTemplate>
-</SpinLoader>
-
 
 @code {
 
@@ -42,7 +43,7 @@
     protected override void OnInitialized()
     {
         _imageList = new List<string>
-        {
+    {
             "images/garfield.png"
         };
     }
