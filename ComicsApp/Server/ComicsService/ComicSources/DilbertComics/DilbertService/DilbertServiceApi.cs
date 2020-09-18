@@ -39,7 +39,7 @@ namespace ComicsApp.Server.ComicsService.ComicSources.DilbertComics.DilbertServi
                 imageLink = link.GetAttributeValue("src", "");
             }
 
-            imageLink = $"https:{imageLink}.png";
+            imageLink = $"{imageLink}.png";
 
             return imageLink;
         }
