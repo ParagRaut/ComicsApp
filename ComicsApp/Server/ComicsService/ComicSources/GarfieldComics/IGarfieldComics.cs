@@ -1,7 +1,9 @@
-﻿namespace ComicsApp.Server.ComicsService.ComicSources.GarfieldComics
+﻿using System.Threading.Tasks;
+
+namespace ComicsApp.Server.ComicsService.ComicSources.GarfieldComics
 {
     public interface IGarfieldComics
     {
-        string GetGarfieldComicUri();
+        Task<string> GetGarfieldComicUri();
     }
 }

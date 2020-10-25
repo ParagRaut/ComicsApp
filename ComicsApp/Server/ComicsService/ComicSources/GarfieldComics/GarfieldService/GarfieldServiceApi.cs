@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace ComicsApp.Server.ComicsService.ComicSources.GarfieldComics.GarfieldService
 {
     public class GarfieldServiceApi
     {
-        public string GetGarfieldComicsUrl()
+        public async Task<string> GetGarfieldComicsUrl()
         {
             string dateRange = this.GetRandomDateRange();
 
-            string baseUrl = $"https://d1ejxu6vysztl5.cloudfront.net/comics/garfield/{dateRange}.gif";           
+            var baseUrl = new Uri($"https://www.gocomics.com/garfield/{dateRange}");
 
-            return baseUrl;
+            var httpClient = new HttpClient();
+
+            string source = await httpClient.GetStringAsync(baseUrl);
+
+            string imageLink = this.GetUri(source);
+
+            return imageLink;
         }
 
         private string GetRandomDateRange()
@@ -18,9 +28,24 @@ namespace ComicsApp.Server.ComicsService.ComicSources.GarfieldComics.GarfieldSer
             var random = new Random();
             var startDate = new DateTime(1978, 6, 19);
             int dateRange = (DateTime.Today - startDate).Days;
-            var timeString = startDate.AddDays(random.Next(dateRange)).ToString("yyyy-MM-dd");
-            timeString = $"{timeString.Split("-")[0]}/{timeString}";
-            return timeString;
-        }      
+            return startDate.AddDays(random.Next(dateRange)).ToString("yyyy/MM/dd");
+        }
+
+        private string GetUri(string source)
+        {
+            var document = new HtmlDocument();
+
+            document.LoadHtml(source);
+
+            const string imageClassNode = "//picture[@class='item-comic-image']";
+
+            HtmlNodeCollection imageNode = document.DocumentNode.SelectNodes(imageClassNode);
+
+            var imageLink = imageNode.Select(x => x.FirstChild.GetAttributeValue("src", "")).FirstOrDefault();
+
+            imageLink = $"{imageLink}.png";
+
+            return imageLink;
+        }
     }
 }
