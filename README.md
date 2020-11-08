@@ -13,8 +13,9 @@ To run this project
 
 ```bash
 git clone https://github.com/ParagRaut/ComicsApp.git
-cd src
+cd ComicsApp
 dotnet build
+cd src
 dotnet run --project Server
 ```
 
