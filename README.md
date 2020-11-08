@@ -9,13 +9,15 @@ Visit following url to download appropriate .netcore sdk version <br/>
 
 URL: https://dotnet.microsoft.com/download/dotnet-core
 
-After cloning project goto root directory i.e. “ComicsApp" and run
+To run this project
 
-1) dotnet build
-
-Then goto project directory i.e. “ComicsApp/ComicsApp” and run
-
-2) dotnet run --project Server
+```bat
+git clone https://github.com/ParagRaut/ComicsApp.git
+cd ComicsApp
+dotnet build
+cd ComicsApp
+dotnet run --project Server
+```
 
 Goto this address on web browser of your choice <br/>
 
