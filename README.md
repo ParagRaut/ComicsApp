@@ -11,7 +11,7 @@ URL: https://dotnet.microsoft.com/download/dotnet-core
 
 To run this project
 
-```bat
+```bash
 git clone https://github.com/ParagRaut/ComicsApp.git
 cd ComicsApp
 dotnet build
