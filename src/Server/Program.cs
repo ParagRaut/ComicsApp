@@ -16,12 +16,11 @@ namespace ComicsApp.Server
                 .ConfigureLogging(logBuilder =>
                 {
                     logBuilder.ClearProviders(); // removes all providers from LoggerFactory
-                    logBuilder.AddConsole();  
+                    logBuilder.AddConsole();
                     logBuilder.AddTraceSource("Information, ActivityTracing"); // Add Trace listener provider
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStaticWebAssets();
                     webBuilder.UseStartup<Startup>();
                 });
     }
