@@ -26,6 +26,7 @@ namespace ComicsApp.Server.ComicsService.ComicSources.XKCD
         private async Task<int> GetLatestComicId()
         {
             Comic response = await this.XkcdService.GetLatestComicAsync();
+
             Debug.Assert(response.Num != null, "response.Num != null");
 
             return (int)response.Num.Value;

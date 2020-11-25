@@ -7,9 +7,9 @@ namespace ComicsApp.Server.ComicsService.ComicSources.DilbertComics.DilbertServi
 {
     public class DilbertServiceApi
     {
-        public async Task<string> GetDilbertComicsUrl()
+        public static async Task<string> GetDilbertComicsUrl()
         {
-            string dateRange = this.GetRandomDateRange();
+            string dateRange = GetRandomDateRange();
 
             var baseUrl = new Uri($"https://dilbert.com/strip/{dateRange}");
 
@@ -17,12 +17,12 @@ namespace ComicsApp.Server.ComicsService.ComicSources.DilbertComics.DilbertServi
 
             string source = await httpClient.GetStringAsync(baseUrl);
 
-            string imageLink = this.GetUri(source);
+            string imageLink = GetUri(source);
 
             return imageLink;
         }
 
-        private string GetUri(string source)
+        private static string GetUri(string source)
         {
             var document = new HtmlDocument();
 
@@ -44,7 +44,7 @@ namespace ComicsApp.Server.ComicsService.ComicSources.DilbertComics.DilbertServi
             return imageLink;
         }
 
-        private string GetRandomDateRange()
+        private static string GetRandomDateRange()
         {
             var random = new Random();
             var startDate = new DateTime(1989, 4, 16);

@@ -7,11 +7,7 @@ namespace ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes
     {
         public async Task<string> CalvinAndHobbesComicUri()
         {
-            var calvinAndHobbesServiceApi = new CalvinAndHobbesServiceApi();
-
-            string comicStripUri = await calvinAndHobbesServiceApi.CalvinAndHobbesComicUrl();
-
-            return comicStripUri;
+            return await CalvinAndHobbesServiceApi.CalvinAndHobbesComicUrl();
         }
     }
 }
