@@ -10,51 +10,56 @@ namespace ComicsApp.Server.Controllers
     {
         public ComicsController(IComicUrlService comicService, ILogger<ComicsController> logger)
         {
-            this.ComicUrlService = comicService;
-            this._logger = logger;
+            _comicService = comicService;
+            _logger = logger;
         }
 
-        private IComicUrlService ComicUrlService { get; }
+        private readonly IComicUrlService _comicService;
         private readonly ILogger _logger;
 
         [HttpGet]
         [Route("[controller]/random")]
         public Task<string> GetRandom()
         {
-            this._logger.LogInformation("Fetching random comic...");
-            return this.ComicUrlService.GetRandomComic();
+            _logger.LogInformation("Fetching random comic...");
+
+            return _comicService.GetRandomComic();
         }
 
         [HttpGet]
         [Route("[controller]/dilbert")]
         public Task<string> GetDilbert()
         {
-            this._logger.LogInformation("Fetching dilbert comic...");
-            return this.ComicUrlService.GetDilbertComic();
+            _logger.LogInformation("Fetching dilbert comic...");
+
+            return _comicService.GetDilbertComic();
         }
 
         [HttpGet]
         [Route("[controller]/garfield")]
         public Task<string> GetGarfield()
         {
-            this._logger.LogInformation("Fetching garfield comic...");
-            return this.ComicUrlService.GetGarfieldComic();
+            _logger.LogInformation("Fetching garfield comic...");
+
+            return _comicService.GetGarfieldComic();
         }
 
         [HttpGet]
         [Route("[controller]/xkcd")]
         public Task<string> GetXkcd()
         {
-            this._logger.LogInformation("Fetching xkcd comic...");
-            return this.ComicUrlService.GetXkcdComic();
+            _logger.LogInformation("Fetching xkcd comic...");
+
+            return _comicService.GetXkcdComic();
         }
 
         [HttpGet]
         [Route("[controller]/calvinandhobbes")]
         public Task<string> GetCalvinAndHobbesComic()
         {
-            this._logger.LogInformation($"Fetching Calvin and Hobbes comic strip");
-            return this.ComicUrlService.GetCalvinAndHobbesComic();
+            _logger.LogInformation($"Fetching Calvin and Hobbes comic strip");
+
+            return _comicService.GetCalvinAndHobbesComic();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes
 {
-    public interface ICalvinAndHobbesComics
+    public interface ICalvinAndHobbes
     {
         Task<string> CalvinAndHobbesComicUri();
     }

@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace ComicsApp.Server.ComicsService.ComicSources.XKCD
+namespace ComicsApp.Server.ComicsService.ComicSources.Xkcd
 {
     using Microsoft.Rest;
     using Models;

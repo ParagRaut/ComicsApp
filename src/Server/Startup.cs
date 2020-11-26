@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ComicsApp.Server.ComicsService.ComicSources.XKCD;
-using System.Net.Http;
-using ComicsApp.Server.ComicsService.ComicSources.GarfieldComics;
-using ComicsApp.Server.ComicsService.ComicSources.DilbertComics;
+using ComicsApp.Server.ComicsService.ComicSources.Xkcd;
+using ComicsApp.Server.ComicsService.ComicSources.Garfield;
+using ComicsApp.Server.ComicsService.ComicSources.Dilbert;
 using ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
 using ComicsApp.Server.ComicsService;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
 
 namespace ComicsApp.Server
 {
@@ -22,8 +22,6 @@ namespace ComicsApp.Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -39,14 +37,13 @@ namespace ComicsApp.Server
                 return new XKCD(httpClient, true);
             });
             services.AddSingleton<IXkcdComic, XkcdComic>();
-            services.AddSingleton<IGarfieldComics, GarfieldComics>();
-            services.AddSingleton<IDilbertComics, DilbertComics>();
-            services.AddSingleton<ICalvinAndHobbesComics, CalvinAndHobbesComics>();
+            services.AddSingleton<IGarfield, Garfield>();
+            services.AddSingleton<IDilbert, Dilbert>();
+            services.AddSingleton<ICalvinAndHobbes, CalvinAndHobbes>();
             services.AddSingleton<IComicUrlService, ComicUrlService>();
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddFile("Logs/ComicsApiLog-{Date}.log", LogLevel.Debug);
@@ -59,7 +56,6 @@ namespace ComicsApp.Server
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

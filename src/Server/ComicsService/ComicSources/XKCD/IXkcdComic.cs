@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.XKCD
+namespace ComicsApp.Server.ComicsService.ComicSources.Xkcd
 {
     public interface IXkcdComic
     {
