@@ -1,4 +1,7 @@
 # ComicsApp
+
+[![.NET Core](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml)
+
 With this small app you can browse random comics from sources like Garfield, XKCD and Dilbert. <br/>
 This progressive web app is implemented in .Net Core Blazor (ASP Core Hosted Model)
 
