@@ -1,51 +1,46 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.Garfield
+namespace ComicsApp.Server.ComicsService.ComicSources.Garfield;
+
+public class Service
 {
-    public class Service
+    public static async Task<string> GetComicUri()
     {
-        public static async Task<string> GetComicUri()
-        {
-            string dateRange = GetRandomDateRange();
+        string dateRange = GetRandomDateRange();
 
-            var baseUrl = new Uri($"https://www.gocomics.com/garfield/{dateRange}");
+        var baseUrl = new Uri($"https://www.gocomics.com/garfield/{dateRange}");
 
-            var httpClient = new HttpClient();
+        var httpClient = new HttpClient();
 
-            string source = await httpClient.GetStringAsync(baseUrl);
+        string source = await httpClient.GetStringAsync(baseUrl);
 
-            string imageLink = GetImageUri(source);
+        string imageLink = GetImageUri(source);
 
-            return imageLink;
-        }
+        return imageLink;
+    }
 
-        private static string GetRandomDateRange()
-        {
-            var random = new Random();
-            var startDate = new DateTime(1978, 6, 19);
-            int dateRange = (DateTime.Today - startDate).Days;
-            return startDate.AddDays(random.Next(dateRange)).ToString("yyyy/MM/dd");
-        }
+    private static string GetRandomDateRange()
+    {
+        var random = new Random();
+        var startDate = new DateTime(1978, 6, 19);
+        int dateRange = (DateTime.Today - startDate).Days;
+        return startDate.AddDays(random.Next(dateRange)).ToString("yyyy/MM/dd");
+    }
 
-        private static string GetImageUri(string source)
-        {
-            var document = new HtmlDocument();
+    private static string GetImageUri(string source)
+    {
+        var document = new HtmlDocument();
 
-            document.LoadHtml(source);
+        document.LoadHtml(source);
 
-            const string imageClassNode = "//picture[@class='item-comic-image']";
+        const string imageClassNode = "//picture[@class='item-comic-image']";
 
-            HtmlNodeCollection imageNode = document.DocumentNode.SelectNodes(imageClassNode);
+        HtmlNodeCollection imageNode = document.DocumentNode.SelectNodes(imageClassNode);
 
-            var imageLink = imageNode.Select(x => x.FirstChild.GetAttributeValue("src", "")).FirstOrDefault();
+        var imageLink = imageNode.Select(x => x.FirstChild.GetAttributeValue("src", "")).FirstOrDefault();
 
-            imageLink = $"{imageLink}.png";
+        imageLink = $"{imageLink}.png";
 
-            return imageLink;
-        }
+        return imageLink;
     }
 }

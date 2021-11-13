@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.808.0
+VisualStudioVersion = 25.0.1700.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicsApp.Server", "src\Server\ComicsApp.Server.csproj", "{C11692EB-19B2-4995-99E8-4DAA8F03D926}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicsApp.Client", "src\Client\ComicsApp.Client.csproj", "{4D73B2FA-412E-4823-8609-1A993C0605BA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicsApp.Shared", "src\Shared\ComicsApp.Shared.csproj", "{6CE1BCFE-E034-419A-BD36-B6C884D8A77E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

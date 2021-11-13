@@ -1,11 +1,9 @@
-﻿
-namespace ComicsApp.Server.ComicsService.ComicSources
+﻿namespace ComicsApp.Server.ComicsService.ComicSources;
+
+public enum ComicEnum
 {
-    public enum ComicEnum
-    {
-        Garfield,
-        Xkcd,
-        Dilbert,
-        CalvinAndHobbes
-    }
+    Garfield,
+    Xkcd,
+    Dilbert,
+    CalvinAndHobbes
 }

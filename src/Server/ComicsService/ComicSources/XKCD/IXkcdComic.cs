@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.Xkcd
+namespace ComicsApp.Server.ComicsService.ComicSources.Xkcd;
+
+public interface IXkcdComic
 {
-    public interface IXkcdComic
-    {
-        Task<string> GetXkcdComicUri();
-    }
+    Task<string> GetXkcdComicUri();
 }

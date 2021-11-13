@@ -1,13 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿namespace ComicsApp.Server.ComicsService;
 
-namespace ComicsApp.Server.ComicsService
+public interface IComicUrlService
 {
-    public interface IComicUrlService
-    {
-        Task<string> GetRandomComic();
-        Task<string> GetDilbertComic();
-        Task<string> GetGarfieldComic();
-        Task<string> GetXkcdComic();
-        Task<string> GetCalvinAndHobbesComic();
-    }
+    Task<string> GetRandomComic();
+    Task<string> GetDilbertComic();
+    Task<string> GetGarfieldComic();
+    Task<string> GetXkcdComic();
+    Task<string> GetCalvinAndHobbesComic();
 }

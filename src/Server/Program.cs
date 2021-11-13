@@ -1,27 +1,54 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using ComicsApp.Server.ComicsService;
+using ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
+using ComicsApp.Server.ComicsService.ComicSources.Dilbert;
+using ComicsApp.Server.ComicsService.ComicSources.Garfield;
+using ComicsApp.Server.ComicsService.ComicSources.Xkcd;
 
-namespace ComicsApp.Server
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+builder.Services.AddHttpClient<IXKCD, XKCD>();
+builder.Services.AddSingleton<IXKCD, XKCD>(p =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    HttpClient httpClient = p.GetRequiredService<IHttpClientFactory>()
+        .CreateClient(nameof(IXKCD));
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logBuilder =>
-                {
-                    logBuilder.ClearProviders(); // removes all providers from LoggerFactory
-                    logBuilder.AddConsole();
-                    logBuilder.AddTraceSource("Information, ActivityTracing"); // Add Trace listener provider
-                })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    return new XKCD(httpClient, true);
+});
+builder.Services.AddSingleton<IXkcdComic, XkcdComic>();
+builder.Services.AddSingleton<IGarfield, Garfield>();
+builder.Services.AddSingleton<IDilbert, Dilbert>();
+builder.Services.AddSingleton<ICalvinAndHobbes, CalvinAndHobbes>();
+builder.Services.AddSingleton<IComicUrlService, ComicUrlService>();            
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseWebAssemblyDebugging();
 }
+else
+{
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+
+app.MapRazorPages();
+app.MapControllers();
+app.MapFallbackToFile("index.html");
+
+app.Run();

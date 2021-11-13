@@ -1,12 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿namespace ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes
+public class CalvinAndHobbes : ICalvinAndHobbes
 {
-    public class CalvinAndHobbes : ICalvinAndHobbes
+    public async Task<string> CalvinAndHobbesComicUri()
     {
-        public async Task<string> CalvinAndHobbesComicUri()
-        {
-            return await Service.GetComicUri();
-        }
+        return await Service.GetComicUri();
     }
 }

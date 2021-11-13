@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace ComicsApp.Server.ComicsService.ComicSources.Dilbert;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.Dilbert
+public interface IDilbert
 {
-    public interface IDilbert
-    {
-        Task<string> GetDilbertComicUri();
-    }
+    Task<string> GetDilbertComicUri();
 }
