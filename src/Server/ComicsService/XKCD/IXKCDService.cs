@@ -1,7 +1,6 @@
-﻿namespace ComicsApp.Server.ComicsService.XKCD
+﻿namespace ComicsApp.Server.ComicsService.XKCD;
+
+public interface IXKCDService
 {
-    public interface IXKCDService
-    {
-        Task<string> GetComicUri();
-    }
+    Task<string> GetComicUri();
 }
