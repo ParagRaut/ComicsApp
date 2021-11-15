@@ -7,16 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddHttpClient<IXKCD, XKCD>();
-builder.Services.AddSingleton<IXKCD, XKCD>(p =>
-{
-    HttpClient httpClient = p.GetRequiredService<IHttpClientFactory>()
-        .CreateClient(nameof(IXKCD));
+builder.Services.AddScoped<IXKCD, XKCD>(p => new XKCD(new HttpClient(), true));
 
-    return new XKCD(httpClient, true);
-});
-
-builder.Services.AddSingleton<IXKCDService, XKCDService>();
+builder.Services.AddScoped<IXKCDService, XKCDService>();
 
 var app = builder.Build();
 
