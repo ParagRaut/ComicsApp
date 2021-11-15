@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.Garfield;
+namespace ComicsApp.Server.ComicsService.Garfield;
 
 public static class GarfieldService
 {

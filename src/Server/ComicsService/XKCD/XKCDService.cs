@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
-using ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated;
-using ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated.Models;
+using ComicsApp.Server.ComicsService.XKCD.Generated;
+using ComicsApp.Server.ComicsService.XKCD.Generated.Models;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.XKCD;
+namespace ComicsApp.Server.ComicsService.XKCD;
 
 public class XKCDService : IXKCDService
 {

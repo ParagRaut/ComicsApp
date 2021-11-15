@@ -51,7 +51,7 @@
     {
         _isLoading = true;
         _fileResult = await Http.GetStringAsync("Comics/garfield");
-        _imageList.Add(_fileResult);
+        _imageList?.Add(_fileResult);
         _isLoading = false;
     }
 

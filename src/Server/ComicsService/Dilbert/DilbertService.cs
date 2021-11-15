@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.Dilbert;
+namespace ComicsApp.Server.ComicsService.Dilbert;
 
 public static class DilbertService
 {

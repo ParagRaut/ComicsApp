@@ -1,4 +1,4 @@
-﻿namespace ComicsApp.Server.ComicsService.ComicSources.XKCD
+﻿namespace ComicsApp.Server.ComicsService.XKCD
 {
     public interface IXKCDService
     {

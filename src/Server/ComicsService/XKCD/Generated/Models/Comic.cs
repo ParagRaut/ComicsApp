@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated.Models;
+namespace ComicsApp.Server.ComicsService.XKCD.Generated.Models;
 
 using Newtonsoft.Json;
 using System.Linq;

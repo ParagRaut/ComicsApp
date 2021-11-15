@@ -1,8 +1,8 @@
-﻿using ComicsApp.Server.ComicsService.ComicSources;
-using ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
-using ComicsApp.Server.ComicsService.ComicSources.Dilbert;
-using ComicsApp.Server.ComicsService.ComicSources.Garfield;
-using ComicsApp.Server.ComicsService.ComicSources.XKCD;
+﻿using ComicsApp.Server.ComicsService;
+using ComicsApp.Server.ComicsService.CalvinAndHobbes;
+using ComicsApp.Server.ComicsService.Dilbert;
+using ComicsApp.Server.ComicsService.Garfield;
+using ComicsApp.Server.ComicsService.XKCD;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ComicsApp.Server.Controllers;

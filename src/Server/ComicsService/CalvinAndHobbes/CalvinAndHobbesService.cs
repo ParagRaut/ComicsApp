@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
+namespace ComicsApp.Server.ComicsService.CalvinAndHobbes;
 
 public static class CalvinAndHobbesService
 {

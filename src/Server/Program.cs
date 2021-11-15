@@ -1,5 +1,5 @@
-﻿using ComicsApp.Server.ComicsService.ComicSources.XKCD;
-using ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated;
+﻿using ComicsApp.Server.ComicsService.XKCD;
+using ComicsApp.Server.ComicsService.XKCD.Generated;
 
 var builder = WebApplication.CreateBuilder(args);
 
