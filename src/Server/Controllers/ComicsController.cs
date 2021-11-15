@@ -1,4 +1,8 @@
-﻿using ComicsApp.Server.ComicsService;
+﻿using ComicsApp.Server.ComicsService.ComicSources;
+using ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
+using ComicsApp.Server.ComicsService.ComicSources.Dilbert;
+using ComicsApp.Server.ComicsService.ComicSources.Garfield;
+using ComicsApp.Server.ComicsService.ComicSources.XKCD;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ComicsApp.Server.Controllers;
@@ -6,13 +10,13 @@ namespace ComicsApp.Server.Controllers;
 [ApiController]
 public class ComicsController : ControllerBase
 {
-    public ComicsController(IComicUrlService comicService, ILogger<ComicsController> logger)
+    public ComicsController(IXKCDService service, ILogger<ComicsController> logger)
     {
-        _comicService = comicService;
+        _comicService = service;
         _logger = logger;
     }
 
-    private readonly IComicUrlService _comicService;
+    private readonly IXKCDService _comicService;
     private readonly ILogger _logger;
 
     [HttpGet]
@@ -21,7 +25,16 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching random comic...");
 
-        return _comicService.GetRandomComic();
+        ComicEnum comicName = ChooseRandomComicSource();
+
+        return comicName switch
+        {
+            ComicEnum.Garfield => GetGarfield(),
+            ComicEnum.Xkcd => GetXKCD(),
+            ComicEnum.Dilbert => GetDilbert(),
+            ComicEnum.CalvinAndHobbes => GetCalvinAndHobbesComic(),
+            _ => throw new ArgumentOutOfRangeException()
+        };        
     }
 
     [HttpGet]
@@ -30,7 +43,7 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching dilbert comic...");
 
-        return _comicService.GetDilbertComic();
+        return DilbertService.GetComicUri();
     }
 
     [HttpGet]
@@ -39,16 +52,16 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching garfield comic...");
 
-        return _comicService.GetGarfieldComic();
+        return GarfieldService.GetComicUri();
     }
 
     [HttpGet]
     [Route("[controller]/xkcd")]
-    public Task<string> GetXkcd()
+    public Task<string> GetXKCD()
     {
         _logger.LogInformation("Fetching xkcd comic...");
 
-        return _comicService.GetXkcdComic();
+        return _comicService.GetComicUri();
     }
 
     [HttpGet]
@@ -57,6 +70,12 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation($"Fetching Calvin and Hobbes comic strip");
 
-        return _comicService.GetCalvinAndHobbesComic();
+        return CalvinAndHobbesService.GetComicUri();
+    }
+
+    private static ComicEnum ChooseRandomComicSource()
+    {
+        var random = new Random();
+        return (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
     }
 }

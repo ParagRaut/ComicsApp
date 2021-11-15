@@ -1,18 +1,19 @@
 ﻿using System.Diagnostics;
-using ComicsApp.Server.ComicsService.ComicSources.Xkcd.Models;
+using ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated;
+using ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated.Models;
 
-namespace ComicsApp.Server.ComicsService.ComicSources.Xkcd;
+namespace ComicsApp.Server.ComicsService.ComicSources.XKCD;
 
-public class XkcdComic : IXkcdComic
+public class XKCDService : IXKCDService
 {
-    public XkcdComic(IXKCD xKcdComics)
+    public XKCDService(IXKCD xKcdComics)
     {
-        XkcdService = xKcdComics;
+        Service = xKcdComics;
     }
 
-    private IXKCD XkcdService { get; }
+    private IXKCD Service { get; }
 
-    public async Task<string> GetXkcdComicUri()
+    public async Task<string> GetComicUri()
     {
         var comicId = await GetRandomComicNumber();
 
@@ -23,7 +24,7 @@ public class XkcdComic : IXkcdComic
 
     private async Task<int> GetLatestComicId()
     {
-        Comic response = await XkcdService.GetLatestComicAsync();
+        Comic response = await Service.GetLatestComicAsync();
 
         Debug.Assert(response.Num != null, "response.Num != null");
 
@@ -39,7 +40,7 @@ public class XkcdComic : IXkcdComic
 
     private async Task<string> GetImageUri(int comicId)
     {
-        Comic comicImage = await XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
+        Comic comicImage = await Service.GetComicByIdAsync(comicId).ConfigureAwait(false);
 
         return comicImage.Img;
     }

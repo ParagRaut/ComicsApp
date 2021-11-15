@@ -2,7 +2,7 @@
 
 namespace ComicsApp.Server.ComicsService.ComicSources.Dilbert;
 
-public class Service
+public static class DilbertService
 {
     public static async Task<string> GetComicUri()
     {

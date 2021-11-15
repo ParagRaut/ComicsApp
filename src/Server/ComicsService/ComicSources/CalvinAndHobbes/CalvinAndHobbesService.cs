@@ -2,7 +2,7 @@
 
 namespace ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
 
-public class Service
+public static class CalvinAndHobbesService
 {
     public static async Task<string> GetComicUri()
     {

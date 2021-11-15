@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace ComicsApp.Server.ComicsService.ComicSources.Xkcd;
+namespace ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated;
 
 using Models;
 using System.Threading;

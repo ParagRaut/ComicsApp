@@ -1,13 +1,9 @@
-﻿using ComicsApp.Server.ComicsService;
-using ComicsApp.Server.ComicsService.ComicSources.CalvinAndHobbes;
-using ComicsApp.Server.ComicsService.ComicSources.Dilbert;
-using ComicsApp.Server.ComicsService.ComicSources.Garfield;
-using ComicsApp.Server.ComicsService.ComicSources.Xkcd;
+﻿using ComicsApp.Server.ComicsService.ComicSources.XKCD;
+using ComicsApp.Server.ComicsService.ComicSources.XKCD.Generated;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
@@ -19,11 +15,8 @@ builder.Services.AddSingleton<IXKCD, XKCD>(p =>
 
     return new XKCD(httpClient, true);
 });
-builder.Services.AddSingleton<IXkcdComic, XkcdComic>();
-builder.Services.AddSingleton<IGarfield, Garfield>();
-builder.Services.AddSingleton<IDilbert, Dilbert>();
-builder.Services.AddSingleton<ICalvinAndHobbes, CalvinAndHobbes>();
-builder.Services.AddSingleton<IComicUrlService, ComicUrlService>();            
+
+builder.Services.AddSingleton<IXKCDService, XKCDService>();
 
 var app = builder.Build();
 
