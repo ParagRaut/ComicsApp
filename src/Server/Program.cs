@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IXKCD, XKCD>(p => new XKCD(new HttpClient(), true));
 
-builder.Services.AddScoped<IXKCDService, XKCDService>();
+builder.Services.AddScoped<XKCDService>();
 
 var app = builder.Build();
 

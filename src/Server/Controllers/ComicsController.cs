@@ -10,13 +10,13 @@ namespace ComicsApp.Server.Controllers;
 [ApiController]
 public class ComicsController : ControllerBase
 {
-    public ComicsController(IXKCDService service, ILogger<ComicsController> logger)
+    public ComicsController(XKCDService service, ILogger<ComicsController> logger)
     {
         _comicService = service;
         _logger = logger;
     }
 
-    private readonly IXKCDService _comicService;
+    private readonly XKCDService _comicService;
     private readonly ILogger _logger;
 
     [HttpGet]
