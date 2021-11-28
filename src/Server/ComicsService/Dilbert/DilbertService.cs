@@ -2,17 +2,20 @@
 
 namespace ComicsApp.Server.ComicsService.Dilbert;
 
-public static class DilbertService
+public class DilbertService
 {
-    public static async Task<string> GetComicUri()
+    private readonly HttpClient _httpClient;
+
+    public DilbertService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task<string> GetComicUri()
     {
         string dateRange = GetRandomDateRange();
 
-        var baseUrl = new Uri($"https://dilbert.com/strip/{dateRange}");
-
-        var httpClient = new HttpClient();
-
-        string source = await httpClient.GetStringAsync(baseUrl);
+        string source = await _httpClient.GetStringAsync(dateRange);
 
         string imageLink = GetImageUri(source);
 

@@ -10,13 +10,23 @@ namespace ComicsApp.Server.Controllers;
 [ApiController]
 public class ComicsController : ControllerBase
 {
-    public ComicsController(XKCDService service, ILogger<ComicsController> logger)
+    public ComicsController(XKCDService xKCDService,
+        CalvinAndHobbesService calvinAndHobbesService,
+        DilbertService dilbertService,
+        GarfieldService garfieldService,
+        ILogger<ComicsController> logger)
     {
-        _comicService = service;
+        _xKCDService = xKCDService;
+        _calvinAndHobbesService = calvinAndHobbesService;
+        _dilbertService = dilbertService;
+        _garfieldService = garfieldService;
         _logger = logger;
     }
 
-    private readonly XKCDService _comicService;
+    private readonly XKCDService _xKCDService;
+    private readonly CalvinAndHobbesService _calvinAndHobbesService;
+    private readonly DilbertService _dilbertService;
+    private readonly GarfieldService _garfieldService;
     private readonly ILogger _logger;
 
     [HttpGet]
@@ -43,7 +53,7 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching dilbert comic...");
 
-        return DilbertService.GetComicUri();
+        return _dilbertService.GetComicUri();
     }
 
     [HttpGet]
@@ -52,7 +62,7 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching garfield comic...");
 
-        return GarfieldService.GetComicUri();
+        return _garfieldService.GetComicUri();
     }
 
     [HttpGet]
@@ -61,7 +71,7 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching xkcd comic...");
 
-        return _comicService.GetComicUri();
+        return _xKCDService.GetComicUri();
     }
 
     [HttpGet]
@@ -70,7 +80,7 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation($"Fetching Calvin and Hobbes comic strip");
 
-        return CalvinAndHobbesService.GetComicUri();
+        return _calvinAndHobbesService.GetComicUri();
     }
 
     private static ComicEnum ChooseRandomComicSource()

@@ -2,17 +2,20 @@
 
 namespace ComicsApp.Server.ComicsService.Garfield;
 
-public static class GarfieldService
+public class GarfieldService
 {
-    public static async Task<string> GetComicUri()
+    private readonly HttpClient _httpClient;
+
+    public GarfieldService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task<string> GetComicUri()
     {
         string dateRange = GetRandomDateRange();
 
-        var baseUrl = new Uri($"https://www.gocomics.com/garfield/{dateRange}");
-
-        var httpClient = new HttpClient();
-
-        string source = await httpClient.GetStringAsync(baseUrl);
+        string source = await _httpClient.GetStringAsync(dateRange);
 
         string imageLink = GetImageUri(source);
 
