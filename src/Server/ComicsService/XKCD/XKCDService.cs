@@ -1,47 +1,59 @@
-﻿using System.Diagnostics;
-using ComicsApp.Server.ComicsService.XKCD.Generated;
-using ComicsApp.Server.ComicsService.XKCD.Generated.Models;
+﻿using Refit;
 
 namespace ComicsApp.Server.ComicsService.XKCD;
 
+// ReSharper disable once InconsistentNaming
+public interface IXKCDService
+{
+    Task<string> GetComicUri();
+
+    [Get("/info.0.json")]
+    Task<XKCDComic> GetLatestComic();
+
+    [Get("/{comicId}/info.0.json")]
+    Task<XKCDComic> GetComicById(int comicId);
+}
+
+// ReSharper disable once InconsistentNaming
 public class XKCDService
 {
-    public XKCDService(IXKCD xKcdComics)
-    {
-        Service = xKcdComics;
-    }
+    private readonly IXKCDService _xkcdService;
 
-    private IXKCD Service { get; }
+    public XKCDService(IXKCDService xkcdService)
+    {
+        _xkcdService = xkcdService;
+    }    
 
     public async Task<string> GetComicUri()
     {
         var comicId = await GetRandomComicNumber();
 
-        string comicImageUri = await GetImageUri(comicId);
+        var comic = await GetImageUri(comicId);
 
-        return comicImageUri;
-    }
-
-    private async Task<int> GetLatestComicId()
-    {
-        Comic response = await Service.GetLatestComicAsync();
-
-        Debug.Assert(response.Num != null, "response.Num != null");
-
-        return (int)response.Num.Value;
+        return comic.img;
     }
 
     private async Task<int> GetRandomComicNumber()
     {
         var maxId = await GetLatestComicId();
         var randomNumber = new Random();
-        return randomNumber.Next(maxId);
+        return randomNumber.Next(maxId.num);
     }
 
-    private async Task<string> GetImageUri(int comicId)
+    private async Task<XKCDComic> GetLatestComicId()
     {
-        Comic comicImage = await Service.GetComicByIdAsync(comicId).ConfigureAwait(false);
+        var response = await _xkcdService.GetLatestComic();
 
-        return comicImage.Img;
+        return response;
+    }
+
+    private async Task<XKCDComic> GetImageUri(int comicId)
+    {
+        var comicImage = await _xkcdService.GetComicById(comicId);
+
+        return comicImage;
     }
 }
+
+// ReSharper disable once InconsistentNaming
+public record XKCDComic(int num, string img);
