@@ -23,8 +23,4 @@ cd src
 dotnet run --project Server
 ```
 
-Goto this address on web browser of your choice <br/>
-
-URL: https://localhost:5001 or http://localhost:5000
-
 Feel free to create pull requests and enjoy comic strips without ads :)
