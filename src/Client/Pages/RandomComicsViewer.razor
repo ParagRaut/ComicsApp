@@ -35,7 +35,7 @@
 
     private static string _fileResult = string.Empty;
 
-    private readonly IList<string>? _imageList = new List<string>();
+    private static IList<string>? _imageList;
 
     private int _currentIndex;
 
@@ -44,6 +44,11 @@
         if (string.IsNullOrEmpty(_fileResult))
         {
             _fileResult = "images/comics.jpg";
+        }
+
+        if (_imageList == null || _imageList.Count == 0)
+        {
+            _imageList = new List<string>();
         }
 
         if (_imageList.Count == 0)
