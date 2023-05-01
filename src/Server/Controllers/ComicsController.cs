@@ -1,7 +1,4 @@
-﻿using ComicsApp.Server.ComicsService;
-using ComicsApp.Server.ComicsService.CalvinAndHobbes;
-using ComicsApp.Server.ComicsService.Garfield;
-using ComicsApp.Server.ComicsService.XKCD;
+﻿using ComicsProvider;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ComicsApp.Server.Controllers;
@@ -9,20 +6,14 @@ namespace ComicsApp.Server.Controllers;
 [ApiController]
 public class ComicsController : ControllerBase
 {
-    public ComicsController(XKCDService xKCDService,
-        CalvinAndHobbesService calvinAndHobbesService,
-        GarfieldService garfieldService,
+    public ComicsController(IComicsService service,
         ILogger<ComicsController> logger)
     {
-        _xKcdService = xKCDService;
-        _calvinAndHobbesService = calvinAndHobbesService;
-        _garfieldService = garfieldService;
+        _service = service;
         _logger = logger;
     }
 
-    private readonly XKCDService _xKcdService;
-    private readonly CalvinAndHobbesService _calvinAndHobbesService;
-    private readonly GarfieldService _garfieldService;
+    private readonly IComicsService _service;
     private readonly ILogger _logger;
 
     [HttpGet]
@@ -36,8 +27,8 @@ public class ComicsController : ControllerBase
         return comicName switch
         {
             ComicEnum.Garfield => GetGarfield(),
-            ComicEnum.Xkcd => GetXKCD(),
-            ComicEnum.CalvinAndHobbes => GetCalvinAndHobbesComic(),
+            ComicEnum.Xkcd => GetXkcd(),
+            ComicEnum.CalvinAndHobbes => GetCalvinAndHobbes(),
             _ => throw new ArgumentOutOfRangeException()
         };        
     }
@@ -48,25 +39,25 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching garfield comic...");
 
-        return _garfieldService.GetComicUri();
+        return _service.GetGarfieldComics();
     }
 
     [HttpGet]
     [Route("[controller]/xkcd")]
-    public Task<string> GetXKCD()
+    public Task<string> GetXkcd()
     {
         _logger.LogInformation("Fetching xkcd comic...");
 
-        return this._xKcdService.GetComicUri();
+        return _service.GetXkcdComics();
     }
 
     [HttpGet]
     [Route("[controller]/calvinandhobbes")]
-    public Task<string> GetCalvinAndHobbesComic()
+    public Task<string> GetCalvinAndHobbes()
     {
         _logger.LogInformation($"Fetching Calvin and Hobbes comic strip");
 
-        return _calvinAndHobbesService.GetComicUri();
+        return _service.GetCalvinAndHobbesComics();
     }
 
     private static ComicEnum ChooseRandomComicSource()

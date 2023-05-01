@@ -1,6 +1,6 @@
 ﻿using Refit;
 
-namespace ComicsApp.Server.ComicsService.XKCD;
+namespace ComicsProvider.XKCD;
 
 // ReSharper disable once InconsistentNaming
 public interface IXKCDService
@@ -22,32 +22,32 @@ public class XKCDService
         _xkcdService = xkcdService;
     }    
 
-    public async Task<string> GetComicUri()
+    protected internal async Task<string> GetComicUri()
     {
-        var comicId = await GetRandomComicNumber();
+        var comicId = await this.GetRandomComicNumber();
 
-        var comic = await GetImageUri(comicId);
+        var comic = await this.GetImageUri(comicId);
 
         return comic.img;
     }
 
     private async Task<int> GetRandomComicNumber()
     {
-        var maxId = await GetLatestComicId();
+        var maxId = await this.GetLatestComicId();
         var randomNumber = new Random();
         return randomNumber.Next(maxId.num);
     }
 
     private async Task<XKCDComic> GetLatestComicId()
     {
-        var response = await _xkcdService.GetLatestComic();
+        var response = await this._xkcdService.GetLatestComic();
 
         return response;
     }
 
     private async Task<XKCDComic> GetImageUri(int comicId)
     {
-        var comicImage = await _xkcdService.GetComicById(comicId);
+        var comicImage = await this._xkcdService.GetComicById(comicId);
 
         return comicImage;
     }

@@ -33,18 +33,23 @@
 
     private bool _isLoading;
 
-    private string _fileResult = "images/comics.jpg";
+    private static string _fileResult = string.Empty;
 
-    private IList<string>? _imageList;
+    private readonly IList<string>? _imageList = new List<string>();
 
     private int _currentIndex;
 
     protected override void OnInitialized()
     {
-        _imageList = new List<string>
+        if (string.IsNullOrEmpty(_fileResult))
         {
-            "images/comics.jpg"
-        };
+            _fileResult = "images/comics.jpg";
+        }
+
+        if (_imageList.Count == 0)
+        {
+            _imageList.Add("images/comics.jpg");
+        }
     }
 
     protected async Task GetRandomComic()

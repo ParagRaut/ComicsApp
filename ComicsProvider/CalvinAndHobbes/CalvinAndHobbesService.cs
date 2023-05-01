@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace ComicsApp.Server.ComicsService.CalvinAndHobbes;
+namespace ComicsProvider.CalvinAndHobbes;
 
 public class CalvinAndHobbesService
 {
@@ -8,12 +8,12 @@ public class CalvinAndHobbesService
 
     public CalvinAndHobbesService(HttpClient httpClient)
     {
-        _httpClient = httpClient;
+        this._httpClient = httpClient;
     }
 
-    public async Task<string> GetComicUri()
+    protected internal async Task<string> GetComicUri()
     {
-        string source = await _httpClient.GetStringAsync("calvinandhobbes");
+        string source = await this._httpClient.GetStringAsync("calvinandhobbes");
 
         string imageLink = GetImageUri(source);
 

@@ -1,6 +1,7 @@
-﻿using HtmlAgilityPack;
+﻿using System;
+using HtmlAgilityPack;
 
-namespace ComicsApp.Server.ComicsService.Garfield;
+namespace ComicsProvider.Garfield;
 
 public class GarfieldService
 {
@@ -8,14 +9,14 @@ public class GarfieldService
 
     public GarfieldService(HttpClient httpClient)
     {
-        _httpClient = httpClient;
+        this._httpClient = httpClient;
     }
 
-    public async Task<string> GetComicUri()
+    protected internal async Task<string> GetComicUri()
     {
         string dateRange = GetRandomDateRange();
 
-        string source = await _httpClient.GetStringAsync(dateRange);
+        string source = await this._httpClient.GetStringAsync(dateRange);
 
         string imageLink = GetImageUri(source);
 

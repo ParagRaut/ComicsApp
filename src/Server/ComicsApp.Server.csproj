@@ -8,12 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0" />
-    <PackageReference Include="HtmlAgilityPack.NetCore" Version="1.5.0.1" />
-    <PackageReference Include="Refit" Version="6.1.15" />
-    <PackageReference Include="Refit.HttpClientFactory" Version="6.1.15" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ComicsProvider\ComicsProvider.csproj" />
     <ProjectReference Include="..\Client\ComicsApp.Client.csproj" />
   </ItemGroup>
 

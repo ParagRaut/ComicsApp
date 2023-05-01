@@ -1,4 +1,4 @@
-﻿namespace ComicsApp.Server.ComicsService;
+﻿namespace ComicsProvider;
 
 public enum ComicEnum
 {
