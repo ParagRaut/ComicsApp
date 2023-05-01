@@ -1,6 +1,5 @@
 ﻿using ComicsApp.Server.ComicsService;
 using ComicsApp.Server.ComicsService.CalvinAndHobbes;
-using ComicsApp.Server.ComicsService.Dilbert;
 using ComicsApp.Server.ComicsService.Garfield;
 using ComicsApp.Server.ComicsService.XKCD;
 using Microsoft.AspNetCore.Mvc;
@@ -12,20 +11,17 @@ public class ComicsController : ControllerBase
 {
     public ComicsController(XKCDService xKCDService,
         CalvinAndHobbesService calvinAndHobbesService,
-        DilbertService dilbertService,
         GarfieldService garfieldService,
         ILogger<ComicsController> logger)
     {
-        _xKCDService = xKCDService;
+        _xKcdService = xKCDService;
         _calvinAndHobbesService = calvinAndHobbesService;
-        _dilbertService = dilbertService;
         _garfieldService = garfieldService;
         _logger = logger;
     }
 
-    private readonly XKCDService _xKCDService;
+    private readonly XKCDService _xKcdService;
     private readonly CalvinAndHobbesService _calvinAndHobbesService;
-    private readonly DilbertService _dilbertService;
     private readonly GarfieldService _garfieldService;
     private readonly ILogger _logger;
 
@@ -41,19 +37,9 @@ public class ComicsController : ControllerBase
         {
             ComicEnum.Garfield => GetGarfield(),
             ComicEnum.Xkcd => GetXKCD(),
-            ComicEnum.Dilbert => GetDilbert(),
             ComicEnum.CalvinAndHobbes => GetCalvinAndHobbesComic(),
             _ => throw new ArgumentOutOfRangeException()
         };        
-    }
-
-    [HttpGet]
-    [Route("[controller]/dilbert")]
-    public Task<string> GetDilbert()
-    {
-        _logger.LogInformation("Fetching dilbert comic...");
-
-        return _dilbertService.GetComicUri();
     }
 
     [HttpGet]
@@ -71,7 +57,7 @@ public class ComicsController : ControllerBase
     {
         _logger.LogInformation("Fetching xkcd comic...");
 
-        return _xKCDService.GetComicUri();
+        return this._xKcdService.GetComicUri();
     }
 
     [HttpGet]

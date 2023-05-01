@@ -4,7 +4,6 @@ public enum ComicEnum
 {
     Garfield,
     Xkcd,
-    Dilbert,
     CalvinAndHobbes
 }
 
