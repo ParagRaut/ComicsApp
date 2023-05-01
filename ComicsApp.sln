@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicsApp.Server", "src\Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicsApp.Client", "src\Client\ComicsApp.Client.csproj", "{4D73B2FA-412E-4823-8609-1A993C0605BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicsProvider", "ComicsProvider\ComicsProvider.csproj", "{E670BBD9-DF68-47DC-8B03-97D4A6C66DDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicsProvider", "src\ComicsProvider\ComicsProvider.csproj", "{E670BBD9-DF68-47DC-8B03-97D4A6C66DDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
