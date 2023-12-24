@@ -15,7 +15,7 @@ To run this project
 ```bash
 git clone https://github.com/ParagRaut/ComicsApp.git
 cd ComicsApp
-dotnet run 
+dotnet run --project src/ComicsApp
 ```
 
 Feel free to create pull requests and enjoy comic strips :)
