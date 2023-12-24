@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ComicsProvider\ComicsProvider.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BlazorPro.Spinkit" Version="1.2.0" />
+    </ItemGroup>
+
+</Project>
