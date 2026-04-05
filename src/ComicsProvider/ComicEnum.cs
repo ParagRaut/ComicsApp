@@ -2,8 +2,6 @@
 
 public enum ComicEnum
 {
-    Garfield,
-    Xkcd,
-    CalvinAndHobbes
+    Xkcd
 }
 

@@ -2,7 +2,7 @@
 
 [![.NET Core](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml)
 
-With this app you can browse comics from sources like Garfield, XKCD and Calvin and Hobbes. <br/>
+With this app you can browse comics from XKCD. <br/>
 
 To build/run this, you need to have .NET 10.0 or higher installed
 
