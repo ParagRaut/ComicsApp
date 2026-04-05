@@ -1,9 +1,9 @@
-﻿using System;
-using HtmlAgilityPack;
+﻿using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace ComicsProvider.Garfield;
 
-public class GarfieldService
+public partial class GarfieldService
 {
     private readonly HttpClient _httpClient;
 
@@ -14,37 +14,27 @@ public class GarfieldService
 
     protected internal async Task<string> GetComicUri()
     {
-        string dateRange = GetRandomDateRange();
-
-        string source = await this._httpClient.GetStringAsync(dateRange);
+        string source = await this._httpClient.GetStringAsync("");
 
         string imageLink = GetImageUri(source);
 
         return imageLink;
     }
 
-    private static string GetRandomDateRange()
-    {
-        var random = new Random();
-        var startDate = new DateTime(1978, 6, 19);
-        int dateRange = (DateTime.Today - startDate).Days;
-        return startDate.AddDays(random.Next(dateRange)).ToString("yyyy/MM/dd");
-    }
-
     private static string GetImageUri(string source)
     {
-        var document = new HtmlDocument();
+        var matches = ContentUrlRegex().Matches(source);
 
-        document.LoadHtml(source);
+        if (matches.Count == 0)
+            throw new InvalidOperationException("Could not find comic image on the page. The website structure may have changed.");
 
-        const string imageClassNode = "//picture[@class='item-comic-image']";
+        // Pick a random comic from the ones available on the page
+        var random = new Random();
+        var match = matches[random.Next(matches.Count)];
 
-        HtmlNodeCollection imageNode = document.DocumentNode.SelectNodes(imageClassNode);
-
-        var imageLink = imageNode.Select(x => x.FirstChild.GetAttributeValue("src", "")).FirstOrDefault();
-
-        imageLink = $"{imageLink}.png";
-
-        return imageLink;
+        return match.Groups[1].Value;
     }
+
+    [GeneratedRegex(@"""contentUrl""\s*:\s*""(https://featureassets\.gocomics\.com/assets/[a-f0-9]+)""")]
+    private static partial Regex ContentUrlRegex();
 }

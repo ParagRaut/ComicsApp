@@ -4,11 +4,11 @@
 
 With this app you can browse comics from sources like Garfield, XKCD and Calvin and Hobbes. <br/>
 
-To build/run this, you need to have .netcore 8.0.100 or higher installed
+To build/run this, you need to have .NET 10.0 or higher installed
 
 Visit following url to download appropriate .net version <br/>
 
-URL: https://dotnet.microsoft.com/download/dotnet/8.0
+URL: https://dotnet.microsoft.com/download/dotnet/10.0
 
 To run this project
 

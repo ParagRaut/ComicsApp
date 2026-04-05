@@ -1,8 +1,8 @@
-﻿using HtmlAgilityPack;
+﻿using System.Text.RegularExpressions;
 
 namespace ComicsProvider.CalvinAndHobbes;
 
-public class CalvinAndHobbesService
+public partial class CalvinAndHobbesService
 {
     private readonly HttpClient _httpClient;
 
@@ -13,7 +13,7 @@ public class CalvinAndHobbesService
 
     protected internal async Task<string> GetComicUri()
     {
-        string source = await this._httpClient.GetStringAsync("calvinandhobbes");
+        string source = await this._httpClient.GetStringAsync("");
 
         string imageLink = GetImageUri(source);
 
@@ -22,15 +22,14 @@ public class CalvinAndHobbesService
 
     private static string GetImageUri(string source)
     {
-        var document = new HtmlDocument();
+        var match = ContentUrlRegex().Match(source);
 
-        document.LoadHtml(source);
-        const string imageClassNode = "//a[contains(@class, 'js-item-comic-link')]/picture/img";
+        if (!match.Success)
+            throw new InvalidOperationException("Could not find comic image on the page. The website structure may have changed.");
 
-        HtmlNode imageNode = document.DocumentNode.SelectSingleNode(imageClassNode);
-
-        string imageLink = imageNode.GetAttributeValue("src", "");
-
-        return imageLink;
+        return match.Groups[1].Value;
     }
+
+    [GeneratedRegex(@"""contentUrl""\s*:\s*""(https://featureassets\.gocomics\.com/assets/[a-f0-9]+)""")]
+    private static partial Regex ContentUrlRegex();
 }
