@@ -1,0 +1,12 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="BlazorPro.Spinkit" Version="1.2.0" />
+    <PackageVersion Include="ParagRaut.ComicsProvider" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
