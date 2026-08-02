@@ -4,17 +4,29 @@
 
 With this app you can browse comics from XKCD. <br/>
 
-To build/run this, you need to have .NET 10.0 or higher installed
+## Prerequisites
 
-Visit following url to download appropriate .net version <br/>
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or higher.
+- A **GitHub personal access token (PAT)** with the `read:packages` scope. This project
+  depends on the private [`ParagRaut.ComicsProvider`](https://github.com/ParagRaut/ComicsProvider)
+  package hosted on GitHub Packages, so restoring it requires authentication.
 
-URL: https://dotnet.microsoft.com/download/dotnet/10.0
+Set the token once as a user environment variable (do this in a **new** terminal afterwards):
 
-To run this project
+```powershell
+setx GITHUB_TOKEN "ghp_your_token_here"
+```
 
-```bash
+The `nuget.config` reads `%GITHUB_TOKEN%` to authenticate against the feed. In CI this is
+provided automatically via the `PACKAGES_READ_TOKEN` secret.
+
+## Build & run
+
+```powershell
 git clone https://github.com/ParagRaut/ComicsApp.git
 cd ComicsApp
+dotnet restore
+dotnet build
 dotnet run --project src/ComicsApp
 ```
 
