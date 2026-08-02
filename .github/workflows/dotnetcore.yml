@@ -11,6 +11,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: read
+
+    env:
+      # Required so nuget.config's %GITHUB_TOKEN% can authenticate to GitHub Packages.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Avoid NU3012 on Linux runners (Refit author-signature revocation check).
+      NUGET_CERT_REVOCATION_MODE: offline
+
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET 10
