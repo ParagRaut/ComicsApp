@@ -16,8 +16,10 @@ jobs:
       packages: read
 
     env:
-      # Required so nuget.config's %GITHUB_TOKEN% can authenticate to GitHub Packages.
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # PAT with read:packages — reliably reads the ComicsProvider package across repos.
+      # (The built-in GITHUB_TOKEN is blocked cross-repo for user-account packages: 403.)
+      # Add this as an Actions secret in the repo settings.
+      GITHUB_TOKEN: ${{ secrets.PACKAGES_READ_TOKEN }}
       # Avoid NU3012 on Linux runners (Refit author-signature revocation check).
       NUGET_CERT_REVOCATION_MODE: offline
 
