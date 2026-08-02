@@ -1,4 +1,5 @@
 using ComicsApp.Components;
+using ComicsApp.Services;
 using ComicsProvider;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddComicsService();
+builder.Services.AddScoped<XkcdComicState>();
 
 var app = builder.Build();
 

@@ -9,12 +9,18 @@ main {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-image: linear-gradient(160deg, #1e1b4b 0%, #312e81 45%, #4c1d95 100%);
+    box-shadow: 2px 0 20px rgba(76, 29, 149, 0.25);
+}
+
+main {
+    background-color: #f8fafc;
 }
 
 .top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e2e8f0;
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
@@ -25,10 +31,17 @@ main {
         white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
+        font-weight: 600;
+        color: #334155;
+        padding: 0.4rem 0.9rem;
+        border-radius: 8px;
+        transition: background-color 0.15s ease, color 0.15s ease;
     }
 
     .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
+        text-decoration: none;
+        color: #4f46e5;
+        background-color: rgba(99, 102, 241, 0.1);
     }
 
     .top-row ::deep a:first-child {
