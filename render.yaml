@@ -6,6 +6,8 @@ services:
     dockerContext: .
     plan: free
     healthCheckPath: /
+    # Deploys are triggered by the GitHub Actions workflow (via deploy hook) after a green build.
+    autoDeploy: false
     envVars:
       # Set this in the Render dashboard (Environment tab). Used at build time to
       # restore the private ParagRaut.ComicsProvider package from GitHub Packages.
