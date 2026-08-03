@@ -1,0 +1,11 @@
+# Build artifacts and local cruft that shouldn't go into the Docker build context.
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/*.user
+.git/
+.gitignore
+artifacts/
+README.md
+LICENSE

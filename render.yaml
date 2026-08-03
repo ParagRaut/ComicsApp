@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: comicsapp
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /
+    envVars:
+      # Set this in the Render dashboard (Environment tab). Used at build time to
+      # restore the private ParagRaut.ComicsProvider package from GitHub Packages.
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
