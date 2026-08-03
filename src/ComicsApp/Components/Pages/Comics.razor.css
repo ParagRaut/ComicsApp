@@ -53,26 +53,24 @@
 }
 
 .comic-badge {
-    position: absolute;
-    top: 0.85rem;
-    left: 0.85rem;
-    z-index: 2;
-    padding: 0.32rem 0.7rem;
-    border-radius: 999px;
-    font-size: 0.7rem;
+    display: block;
+    padding: 0.65rem 1rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: #fff;
-    background: rgba(15, 23, 42, 0.72);
-    backdrop-filter: blur(6px);
+    color: var(--text-muted);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
 }
 
 .comic-card img {
     display: block;
     width: 100%;
     height: auto;
-    background: var(--surface-muted);
+    padding: 1.25rem;
+    box-sizing: border-box;
+    background: var(--surface);
 }
 
 .comic-fallback {
