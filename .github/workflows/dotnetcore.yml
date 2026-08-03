@@ -40,10 +40,11 @@ jobs:
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
     steps:
     - name: Trigger Render deploy
-      # Add the service's Deploy Hook URL as the RENDER_DEPLOY_HOOK_URL Actions secret.
+      # Skips until the service's Deploy Hook URL is added as the RENDER_DEPLOY_HOOK_URL Actions secret.
+      if: env.RENDER_DEPLOY_HOOK_URL != ''
       run: curl -fsSL -X POST "$RENDER_DEPLOY_HOOK_URL"
-      env:
-        RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
