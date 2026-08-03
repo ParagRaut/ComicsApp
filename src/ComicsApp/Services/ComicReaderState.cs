@@ -2,44 +2,59 @@ using ComicsProvider;
 
 namespace ComicsApp.Services;
 
-// Per-user (scoped) history of viewed comics with navigation across multiple sources.
+// Per-user (scoped) endless feed of random comics pulled from every source.
 public sealed class ComicReaderState(IComicsService comicsService)
 {
-    private const string PlaceholderImage = "images/xkcd.jpg";
+    private static readonly (ComicEnum Source, string Label)[] AllSources =
+    [
+        (ComicEnum.Xkcd, "XKCD"),
+        (ComicEnum.Smbc, "SMBC"),
+        (ComicEnum.DinosaurComics, "Dinosaur Comics"),
+        (ComicEnum.PhdComics, "PHD Comics"),
+        (ComicEnum.Imgflip, "imgflip"),
+        (ComicEnum.PoorlyDrawnLines, "Poorly Drawn Lines"),
+        (ComicEnum.WarAndPeas, "War and Peas"),
+        (ComicEnum.PerryBibleFellowship, "Perry Bible Fellowship")
+    ];
 
-    private readonly List<string> _comics = [PlaceholderImage];
+    private readonly List<ComicItem> _items = [];
 
-    public string CurrentComic => _comics[CurrentIndex];
+    public IReadOnlyList<ComicItem> Items => _items;
 
-    public int CurrentIndex { get; private set; }
+    public bool HasItems => _items.Count > 0;
 
-    public bool CanGoBack => CurrentIndex > 0;
-
-    public ComicEnum Source { get; set; } = ComicEnum.Xkcd;
-
-    public void GoToPrevious()
+    // Fetches a batch of comics from randomly chosen sources, routing around any that fail (timeouts, 403s, bad feeds).
+    public async Task<int> LoadMoreAsync(int count = 3)
     {
-        if (CanGoBack)
+        int added = 0;
+        int attempts = 0;
+        int maxAttempts = count * 4;
+
+        while (added < count && attempts < maxAttempts)
         {
-            CurrentIndex--;
+            attempts++;
+            (ComicEnum source, string label) = AllSources[Random.Shared.Next(AllSources.Length)];
+
+            try
+            {
+                string url = await comicsService.GetComicAsync(source);
+
+                if (!string.IsNullOrWhiteSpace(url))
+                {
+                    _items.Add(new ComicItem(url, label));
+                    added++;
+                }
+            }
+            catch
+            {
+                // A flaky source shouldn't break the feed — just try another one.
+            }
         }
+
+        return added;
     }
 
-    // Steps forward through already-loaded history, otherwise fetches a new comic from the selected source.
-    public async Task GoToNextAsync()
-    {
-        if (CurrentIndex < _comics.Count - 1)
-        {
-            CurrentIndex++;
-            return;
-        }
-
-        string comic = await comicsService.GetComicAsync(Source);
-
-        if (!string.IsNullOrWhiteSpace(comic))
-        {
-            _comics.Add(comic);
-            CurrentIndex = _comics.Count - 1;
-        }
-    }
+    public void Clear() => _items.Clear();
 }
+
+public sealed record ComicItem(string Url, string Source);

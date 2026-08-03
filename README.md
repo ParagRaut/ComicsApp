@@ -2,9 +2,10 @@
 
 [![.NET Core](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml)
 
-With this app you can browse comics from XKCD, SMBC, Dinosaur Comics, PHD Comics and imgflip.
-Pick a source, pull a random comic, and flip back and forth through
-your history. <br/>
+With this app you can browse comics from XKCD, SMBC, Dinosaur Comics, PHD Comics, imgflip,
+Poorly Drawn Lines, War and Peas and Perry Bible Fellowship.
+It's an endless, auto-loading feed — the comics keep coming as you scroll, mixed from every
+source. Hit the shuffle button any time for a fresh batch. <br/>
 
 ## Prerequisites
 

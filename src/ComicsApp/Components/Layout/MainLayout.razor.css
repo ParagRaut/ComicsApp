@@ -1,92 +1,76 @@
-.page {
-    position: relative;
+.app {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-main {
-    flex: 1;
+.app-bar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
 }
 
-.sidebar {
-    background-image: linear-gradient(160deg, #1e1b4b 0%, #312e81 45%, #4c1d95 100%);
-    box-shadow: 2px 0 20px rgba(76, 29, 149, 0.25);
-}
-
-main {
-    background-color: #f8fafc;
-}
-
-.top-row {
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid #e2e8f0;
-    justify-content: flex-end;
-    height: 3.5rem;
+.app-bar-inner {
+    max-width: 680px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
 }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-        text-decoration: none;
-        font-weight: 600;
-        color: #334155;
-        padding: 0.4rem 0.9rem;
-        border-radius: 8px;
-        transition: background-color 0.15s ease, color 0.15s ease;
-    }
-
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: none;
-        color: #4f46e5;
-        background-color: rgba(99, 102, 241, 0.1);
-    }
-
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-@media (max-width: 640.98px) {
-    .top-row {
-        justify-content: space-between;
-    }
-
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        margin-left: 0;
-    }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
 }
 
-@media (min-width: 641px) {
-    .page {
-        flex-direction: row;
-    }
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #6366f1, #d946ef);
+    box-shadow: 0 4px 14px -2px rgba(217, 70, 239, 0.5);
+    transition: transform 0.25s ease;
+}
 
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
-    }
+.brand:hover .brand-logo {
+    transform: rotate(-12deg) scale(1.08);
+}
 
-    .top-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
+.brand-text {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #6366f1, #d946ef);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-    .top-row.auth ::deep a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
-    }
+.about-link {
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0.4rem 0.9rem;
+    border-radius: 9px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
 
-    .top-row, article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
-    }
+.about-link:hover {
+    color: var(--accent-hover);
+    background-color: var(--accent-soft);
+}
+
+.app-main {
+    flex: 1;
 }
 
 #blazor-error-ui {

@@ -1,76 +1,72 @@
-@page "/comics"
+@page "/"
 @using ComicsApp.Services
-@using ComicsProvider
-
 @rendermode InteractiveServer
+@implements IAsyncDisposable
 
 @inject ComicReaderState State
+@inject IJSRuntime JS
 
-<PageTitle>Comics Reader</PageTitle>
+<PageTitle>Comics</PageTitle>
 
-<div class="reader">
-    <header class="reader-header">
-        <h1>Comics Reader</h1>
-        <p>Pick a source, load a random comic, then use the controls to move through your history.</p>
+<div class="feed">
+    <header class="feed-hero">
+        <h1>An endless comic feed</h1>
+        <p>A never-ending shuffle of XKCD, SMBC, Dinosaur Comics, PHD, imgflip, Poorly Drawn Lines, War and Peas &amp; Perry Bible Fellowship. Just keep scrolling.</p>
     </header>
 
-    <div class="source-picker">
-        @foreach (var source in Sources)
-        {
-            <button type="button"
-                    class="source-chip @(State.Source == source.Value ? "active" : null)"
-                    disabled="@_isLoading"
-                    @onclick="() => SelectSource(source.Value)">
-                @source.Label
-            </button>
-        }
-    </div>
+    @foreach (var item in State.Items)
+    {
+        <article class="comic-card">
+            <span class="comic-badge">@item.Source</span>
+            <img src="@item.Url"
+                 alt="@item.Source comic"
+                 loading="lazy"
+                 onerror="this.closest('.comic-card').classList.add('is-broken')" />
+            <div class="comic-fallback">This one refused to load — keep scrolling for more. 🤷</div>
+        </article>
+    }
 
-    <div class="reader-controls">
-        <button type="button" class="btn btn-outline" disabled="@(!State.CanGoBack || _isLoading)" @onclick="GoToPrevious">
-            &larr; Prev
-        </button>
-        <button type="button" class="btn btn-primary" disabled="@_isLoading" @onclick="GoToNext">
-            Next &rarr;
-        </button>
-    </div>
-
-    <div class="comic-card">
-        @if (_isLoading)
+    <div @ref="_sentinel" class="feed-sentinel">
+        @if (_isLoading || !State.HasItems)
         {
-            <div class="loader-wrap">
-                <div class="comic-loader" role="status" aria-label="Loading comic">
-                    <span></span><span></span><span></span>
-                </div>
+            <div class="comic-loader" role="status" aria-label="Loading comics">
+                <span></span><span></span><span></span>
             </div>
-        }
-        else
-        {
-            <picture>
-                <img src="@State.CurrentComic" class="comic-img" alt="Comic">
-            </picture>
         }
     </div>
 </div>
 
+<button type="button" class="shuffle-fab" title="Shuffle a fresh feed" @onclick="ShuffleAsync">
+    <span class="shuffle-icon">🎲</span>
+</button>
+
 @code {
-
+    private ElementReference _sentinel;
+    private DotNetObjectReference<Comics>? _selfRef;
     private bool _isLoading;
+    private bool _observerReady;
 
-    private static readonly (ComicEnum Value, string Label)[] Sources =
-    [
-        (ComicEnum.Xkcd, "XKCD"),
-        (ComicEnum.Smbc, "SMBC"),
-        (ComicEnum.DinosaurComics, "Dinosaur"),
-        (ComicEnum.PhdComics, "PHD"),
-        (ComicEnum.Imgflip, "imgflip")
-    ];
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
 
-    private void SelectSource(ComicEnum source) => State.Source = source;
+        if (!State.HasItems)
+        {
+            await LoadMoreAsync();
+        }
 
-    private void GoToPrevious() => State.GoToPrevious();
+        _selfRef = DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("comicFeed.init", _sentinel, _selfRef);
+        _observerReady = true;
+    }
 
-    private async Task GoToNext()
+    [JSInvokable]
+    public Task LoadMoreFromJs() => LoadMoreAsync();
+
+    private async Task LoadMoreAsync()
     {
         if (_isLoading)
         {
@@ -78,13 +74,38 @@
         }
 
         _isLoading = true;
+        StateHasChanged();
         try
         {
-            await State.GoToNextAsync();
+            await State.LoadMoreAsync();
         }
         finally
         {
             _isLoading = false;
+            StateHasChanged();
         }
+    }
+
+    private async Task ShuffleAsync()
+    {
+        State.Clear();
+        await JS.InvokeVoidAsync("comicFeed.scrollTop");
+        await LoadMoreAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_observerReady)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("comicFeed.dispose");
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+
+        _selfRef?.Dispose();
     }
 }
