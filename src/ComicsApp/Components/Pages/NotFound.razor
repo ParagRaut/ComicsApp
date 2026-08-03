@@ -1,0 +1,46 @@
+@page "/not-found"
+@layout Layout.MainLayout
+
+<PageTitle>Not found</PageTitle>
+
+<div class="notfound">
+    <span class="notfound-emoji" aria-hidden="true">🦸‍♂️💨</span>
+    <h1>404 — this panel is missing</h1>
+    <p>The page you were looking for flew off somewhere. Let's get you back to the feed.</p>
+    <a class="notfound-link" href="/">Back to the comics</a>
+</div>
+
+<style>
+    .notfound {
+        max-width: 32rem;
+        margin: 6rem auto;
+        padding: 0 1.25rem;
+        text-align: center;
+    }
+
+    .notfound-emoji {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .notfound h1 {
+        font-size: 1.75rem;
+        margin: 0 0 0.75rem;
+    }
+
+    .notfound p {
+        color: var(--text-muted, #6b7280);
+        margin: 0 0 1.75rem;
+    }
+
+    .notfound-link {
+        display: inline-block;
+        padding: 0.7rem 1.4rem;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        color: white;
+        background: linear-gradient(135deg, #ff5a5f, #3a86ff);
+    }
+</style>
