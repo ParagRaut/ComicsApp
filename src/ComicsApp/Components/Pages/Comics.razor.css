@@ -1,0 +1,140 @@
+.reader {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+}
+
+.reader-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+    .reader-header h1 {
+        font-size: 2rem;
+        color: var(--brand-900);
+        margin-bottom: 0.4rem;
+    }
+
+    .reader-header p {
+        color: var(--text-muted);
+        margin: 0;
+    }
+
+.source-picker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.source-chip {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+    .source-chip:hover:not(:disabled) {
+        border-color: var(--brand-900);
+        color: var(--brand-900);
+    }
+
+    .source-chip.active {
+        background: var(--brand-900);
+        border-color: var(--brand-900);
+        color: #fff;
+    }
+
+    .source-chip:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+.reader-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.comic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comic-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+.loader-wrap {
+    padding: 3rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Bouncing comic dots in classic red / yellow / blue. */
+.comic-loader {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 0.65rem;
+    height: 40px;
+}
+
+    .comic-loader span {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+        animation: comic-bounce 0.6s infinite ease-in-out;
+    }
+
+        .comic-loader span:nth-child(1) {
+            background: #ff5a5f;
+            animation-delay: -0.3s;
+        }
+
+        .comic-loader span:nth-child(2) {
+            background: #ffce31;
+            animation-delay: -0.15s;
+        }
+
+        .comic-loader span:nth-child(3) {
+            background: #3a86ff;
+        }
+
+@keyframes comic-bounce {
+    0%, 100% {
+        transform: translateY(0) scale(1, 1);
+    }
+
+    30% {
+        transform: translateY(-22px) scale(0.9, 1.1);
+    }
+
+    55% {
+        transform: translateY(0) scale(1.15, 0.85);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .comic-loader span {
+        animation-duration: 1.6s;
+    }
+}

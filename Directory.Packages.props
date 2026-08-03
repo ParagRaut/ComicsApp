@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageVersion Include="BlazorPro.Spinkit" Version="1.2.0" />
     <!-- Floating: always restore the latest published 1.x ComicsProvider automatically -->
     <PackageVersion Include="ParagRaut.ComicsProvider" Version="1.*" />
   </ItemGroup>

@@ -2,8 +2,8 @@ using ComicsProvider;
 
 namespace ComicsApp.Services;
 
-// Per-user (scoped) history of viewed XKCD comics with navigation.
-public sealed class XkcdComicState(IComicsService comicsService)
+// Per-user (scoped) history of viewed comics with navigation across multiple sources.
+public sealed class ComicReaderState(IComicsService comicsService)
 {
     private const string PlaceholderImage = "images/xkcd.jpg";
 
@@ -15,6 +15,8 @@ public sealed class XkcdComicState(IComicsService comicsService)
 
     public bool CanGoBack => CurrentIndex > 0;
 
+    public ComicEnum Source { get; set; } = ComicEnum.Xkcd;
+
     public void GoToPrevious()
     {
         if (CanGoBack)
@@ -23,7 +25,7 @@ public sealed class XkcdComicState(IComicsService comicsService)
         }
     }
 
-    // Steps forward through already-loaded history, otherwise fetches a new comic.
+    // Steps forward through already-loaded history, otherwise fetches a new comic from the selected source.
     public async Task GoToNextAsync()
     {
         if (CurrentIndex < _comics.Count - 1)
@@ -32,7 +34,7 @@ public sealed class XkcdComicState(IComicsService comicsService)
             return;
         }
 
-        string comic = await comicsService.GetXkcdComics();
+        string comic = await comicsService.GetComicAsync(Source);
 
         if (!string.IsNullOrWhiteSpace(comic))
         {

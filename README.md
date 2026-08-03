@@ -2,7 +2,9 @@
 
 [![.NET Core](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml)
 
-With this app you can browse comics from XKCD. <br/>
+With this app you can browse comics from XKCD, SMBC, Dinosaur Comics, Poorly Drawn Lines,
+PHD Comics and imgflip. Pick a source, pull a random comic, and flip back and forth through
+your history. <br/>
 
 ## Prerequisites
 

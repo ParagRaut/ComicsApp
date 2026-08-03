@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddComicsService();
-builder.Services.AddScoped<XkcdComicState>();
+builder.Services.AddScoped<ComicReaderState>();
 
 var app = builder.Build();
 

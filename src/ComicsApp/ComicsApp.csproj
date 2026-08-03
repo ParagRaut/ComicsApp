@@ -4,8 +4,4 @@
       <PackageReference Include="ParagRaut.ComicsProvider" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="BlazorPro.Spinkit" />
-    </ItemGroup>
-
 </Project>

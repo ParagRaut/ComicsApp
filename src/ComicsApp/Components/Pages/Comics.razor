@@ -1,0 +1,91 @@
+@page "/comics"
+@using ComicsApp.Services
+@using ComicsProvider
+
+@rendermode InteractiveServer
+
+@inject ComicReaderState State
+
+<PageTitle>Comics Reader</PageTitle>
+
+<div class="reader">
+    <header class="reader-header">
+        <h1>Comics Reader</h1>
+        <p>Pick a source, load a random comic, then use the controls to move through your history.</p>
+    </header>
+
+    <div class="source-picker">
+        @foreach (var source in Sources)
+        {
+            <button type="button"
+                    class="source-chip @(State.Source == source.Value ? "active" : null)"
+                    disabled="@_isLoading"
+                    @onclick="() => SelectSource(source.Value)">
+                @source.Label
+            </button>
+        }
+    </div>
+
+    <div class="reader-controls">
+        <button type="button" class="btn btn-outline" disabled="@(!State.CanGoBack || _isLoading)" @onclick="GoToPrevious">
+            &larr; Prev
+        </button>
+        <button type="button" class="btn btn-primary" disabled="@_isLoading" @onclick="GoToNext">
+            Next &rarr;
+        </button>
+    </div>
+
+    <div class="comic-card">
+        @if (_isLoading)
+        {
+            <div class="loader-wrap">
+                <div class="comic-loader" role="status" aria-label="Loading comic">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <picture>
+                <img src="@State.CurrentComic" class="comic-img" alt="Comic">
+            </picture>
+        }
+    </div>
+</div>
+
+@code {
+
+    private bool _isLoading;
+
+    private static readonly (ComicEnum Value, string Label)[] Sources =
+    [
+        (ComicEnum.Xkcd, "XKCD"),
+        (ComicEnum.Smbc, "SMBC"),
+        (ComicEnum.DinosaurComics, "Dinosaur"),
+        (ComicEnum.PoorlyDrawnLines, "Poorly Drawn Lines"),
+        (ComicEnum.PhdComics, "PHD"),
+        (ComicEnum.Imgflip, "imgflip")
+    ];
+
+    private void SelectSource(ComicEnum source) => State.Source = source;
+
+    private void GoToPrevious() => State.GoToPrevious();
+
+    private async Task GoToNext()
+    {
+        if (_isLoading)
+        {
+            return;
+        }
+
+        _isLoading = true;
+        try
+        {
+            await State.GoToNextAsync();
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+}
