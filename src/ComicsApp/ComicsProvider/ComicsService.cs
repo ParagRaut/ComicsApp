@@ -1,4 +1,4 @@
-using ComicsProvider.Imgflip;
+using ComicsProvider.Memes;
 using ComicsProvider.Rss;
 using ComicsProvider.XKCD;
 
@@ -12,17 +12,16 @@ public class ComicsService : IComicsService
     private const string PoorlyDrawnLinesFeed = "https://poorlydrawnlines.com/feed/";
     private const string WarAndPeasFeed = "https://warandpeas.com/feed/";
     private const string PerryBibleFellowshipFeed = "https://pbfcomics.com/feed/";
-    private const string WondermarkFeed = "https://wondermark.com/feed/";
 
     private readonly XKCDService _xkcdService;
     private readonly RssComicService _rssComicService;
-    private readonly ImgflipService _imgflipService;
+    private readonly MemeApiService _memeApiService;
 
-    public ComicsService(XKCDService xkcdService, RssComicService rssComicService, ImgflipService imgflipService)
+    public ComicsService(XKCDService xkcdService, RssComicService rssComicService, MemeApiService memeApiService)
     {
         _xkcdService = xkcdService;
         _rssComicService = rssComicService;
-        _imgflipService = imgflipService;
+        _memeApiService = memeApiService;
     }
 
     public async Task<string> GetXkcdComics()
@@ -36,11 +35,10 @@ public class ComicsService : IComicsService
         ComicEnum.Smbc => _rssComicService.GetRandomImageAsync(SmbcFeed),
         ComicEnum.DinosaurComics => _rssComicService.GetRandomImageAsync(DinosaurComicsFeed),
         ComicEnum.PhdComics => _rssComicService.GetRandomImageAsync(PhdComicsFeed),
-        ComicEnum.Imgflip => _imgflipService.GetRandomImageAsync(),
         ComicEnum.PoorlyDrawnLines => _rssComicService.GetRandomImageAsync(PoorlyDrawnLinesFeed),
         ComicEnum.WarAndPeas => _rssComicService.GetRandomImageAsync(WarAndPeasFeed),
         ComicEnum.PerryBibleFellowship => _rssComicService.GetRandomImageAsync(PerryBibleFellowshipFeed),
-        ComicEnum.Wondermark => _rssComicService.GetRandomImageAsync(WondermarkFeed),
+        ComicEnum.Memes => _memeApiService.GetRandomImageAsync(),
         _ => throw new ArgumentOutOfRangeException(nameof(comic), comic, null)
     };
 }

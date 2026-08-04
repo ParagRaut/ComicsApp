@@ -6,9 +6,8 @@ public enum ComicEnum
     Smbc,
     DinosaurComics,
     PhdComics,
-    Imgflip,
     PoorlyDrawnLines,
     WarAndPeas,
     PerryBibleFellowship,
-    Wondermark
+    Memes
 }

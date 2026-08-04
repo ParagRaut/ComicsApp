@@ -2,8 +2,8 @@
 
 [![.NET Core](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicsApp/actions/workflows/dotnetcore.yml)
 
-With this app you can browse comics from XKCD, SMBC, Dinosaur Comics, PHD Comics, imgflip,
-Poorly Drawn Lines, War and Peas, Perry Bible Fellowship and Wondermark.
+With this app you can browse comics from XKCD, SMBC, Dinosaur Comics, PHD Comics,
+Poorly Drawn Lines, War and Peas, Perry Bible Fellowship and Reddit memes.
 It's an endless, auto-loading feed — the comics keep coming as you scroll, mixed from every
 source. Hit the shuffle button any time for a fresh batch. <br/>
 

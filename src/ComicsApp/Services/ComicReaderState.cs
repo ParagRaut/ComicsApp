@@ -11,11 +11,10 @@ public sealed class ComicReaderState(IComicsService comicsService)
         (ComicEnum.Smbc, "SMBC"),
         (ComicEnum.DinosaurComics, "Dinosaur Comics"),
         (ComicEnum.PhdComics, "PHD Comics"),
-        (ComicEnum.Imgflip, "imgflip"),
         (ComicEnum.PoorlyDrawnLines, "Poorly Drawn Lines"),
         (ComicEnum.WarAndPeas, "War and Peas"),
         (ComicEnum.PerryBibleFellowship, "Perry Bible Fellowship"),
-        (ComicEnum.Wondermark, "Wondermark")
+        (ComicEnum.Memes, "Memes")
     ];
 
     private readonly List<ComicItem> _items = [];
