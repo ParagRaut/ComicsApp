@@ -14,7 +14,8 @@ public sealed class ComicReaderState(IComicsService comicsService)
         (ComicEnum.Imgflip, "imgflip"),
         (ComicEnum.PoorlyDrawnLines, "Poorly Drawn Lines"),
         (ComicEnum.WarAndPeas, "War and Peas"),
-        (ComicEnum.PerryBibleFellowship, "Perry Bible Fellowship")
+        (ComicEnum.PerryBibleFellowship, "Perry Bible Fellowship"),
+        (ComicEnum.Wondermark, "Wondermark")
     ];
 
     private readonly List<ComicItem> _items = [];

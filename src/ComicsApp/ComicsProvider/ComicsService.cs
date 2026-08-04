@@ -12,6 +12,7 @@ public class ComicsService : IComicsService
     private const string PoorlyDrawnLinesFeed = "https://poorlydrawnlines.com/feed/";
     private const string WarAndPeasFeed = "https://warandpeas.com/feed/";
     private const string PerryBibleFellowshipFeed = "https://pbfcomics.com/feed/";
+    private const string WondermarkFeed = "https://wondermark.com/feed/";
 
     private readonly XKCDService _xkcdService;
     private readonly RssComicService _rssComicService;
@@ -39,6 +40,7 @@ public class ComicsService : IComicsService
         ComicEnum.PoorlyDrawnLines => _rssComicService.GetRandomImageAsync(PoorlyDrawnLinesFeed),
         ComicEnum.WarAndPeas => _rssComicService.GetRandomImageAsync(WarAndPeasFeed),
         ComicEnum.PerryBibleFellowship => _rssComicService.GetRandomImageAsync(PerryBibleFellowshipFeed),
+        ComicEnum.Wondermark => _rssComicService.GetRandomImageAsync(WondermarkFeed),
         _ => throw new ArgumentOutOfRangeException(nameof(comic), comic, null)
     };
 }
