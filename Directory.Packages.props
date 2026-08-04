@@ -2,13 +2,11 @@
 
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <!-- Allow floating versions (e.g. 1.*) under Central Package Management -->
-    <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Floating: always restore the latest published 1.x ComicsProvider automatically -->
-    <PackageVersion Include="ParagRaut.ComicsProvider" Version="1.*" />
+    <PackageVersion Include="Refit" Version="10.1.6" />
+    <PackageVersion Include="Refit.HttpClientFactory" Version="10.1.6" />
   </ItemGroup>
 
 </Project>

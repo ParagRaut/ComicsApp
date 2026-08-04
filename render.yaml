@@ -9,9 +9,5 @@ services:
     # Render redeploys automatically on every push to the connected branch.
     autoDeploy: true
     envVars:
-      # Set this in the Render dashboard (Environment tab). Used at build time to
-      # restore the private ParagRaut.ComicsProvider package from GitHub Packages.
-      - key: GITHUB_TOKEN
-        sync: false
       - key: ASPNETCORE_ENVIRONMENT
         value: Production

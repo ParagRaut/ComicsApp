@@ -4,11 +4,6 @@ ARG DOTNET_VERSION=10.0
 # --- Build stage ---
 FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION} AS build
 
-# Token for restoring the private ParagRaut.ComicsProvider package from GitHub Packages.
-# Render passes the GITHUB_TOKEN env var as a build arg when this ARG is declared.
-ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-
 # The SDK verifies NuGet author signatures on Linux; a revoked/unreachable CRL for a
 # third-party package (Refit) breaks restore in the container. Skip that check for the build.
 ENV DOTNET_NUGET_SIGNATURE_VERIFICATION=false
@@ -16,7 +11,7 @@ ENV DOTNET_NUGET_SIGNATURE_VERIFICATION=false
 WORKDIR /src
 
 # Restore first (layer-cached) using only the files that affect restore.
-COPY nuget.config Directory.Build.props Directory.Packages.props ./
+COPY Directory.Build.props Directory.Packages.props ./
 COPY src/ComicsApp/ComicsApp.csproj src/ComicsApp/
 RUN dotnet restore src/ComicsApp/ComicsApp.csproj
 

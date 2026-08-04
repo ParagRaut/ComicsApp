@@ -1,17 +1,8 @@
 version: 2
 
-registries:
-  github-packages:
-    type: nuget-feed
-    url: https://nuget.pkg.github.com/ParagRaut/index.json
-    username: ParagRaut
-    token: ${{secrets.DEPENDABOT_GITHUB_PACKAGES_TOKEN}}
-
 updates:
   - package-ecosystem: "nuget"
     directory: "/"
-    registries:
-      - github-packages
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
