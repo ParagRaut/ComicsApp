@@ -19,7 +19,7 @@ jobs:
       NUGET_CERT_REVOCATION_MODE: offline
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - name: Setup .NET 10
       uses: actions/setup-dotnet@v4
       with:
