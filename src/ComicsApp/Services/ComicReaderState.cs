@@ -16,21 +16,24 @@ public sealed class ComicReaderState(IComicsService comicsService)
         (ComicEnum.PerryBibleFellowship, "Perry Bible Fellowship")
     ];
 
-    // Relative selection weights: memes dominate, XKCD is steady, and the RSS group shares the rest.
-    private const double MemeWeight = 60;
-    private const double XkcdWeight = 20;
-    private const double RssGroupWeight = 20;
+    // Always-available sources; RSS feeds are added on top until each one is exhausted.
+    private static readonly (ComicEnum Source, string Label)[] EndlessSources =
+    [
+        (ComicEnum.Xkcd, "XKCD"),
+        (ComicEnum.Memes, "Memes")
+    ];
 
     private readonly List<ComicItem> _items = [];
     private readonly HashSet<string> _shownUrls = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<ComicEnum> _exhaustedRss = [];
+    private ComicEnum? _lastSource;
 
     public IReadOnlyList<ComicItem> Items => _items;
 
     public bool HasItems => _items.Count > 0;
 
-    // Fetches a batch of comics from weighted-random sources, de-duplicating by URL and routing around
-    // any source that fails (timeouts, 403s, bad feeds) or has no fresh images left.
+    // Fetches a batch of comics from random sources, de-duplicating by URL and routing around any source
+    // that fails (timeouts, 403s, bad feeds) or has no fresh images left.
     public async Task<int> LoadMoreAsync(int count = 3)
     {
         int added = 0;
@@ -54,6 +57,7 @@ public sealed class ComicReaderState(IComicsService comicsService)
                 }
 
                 _items.Add(new ComicItem(url, label));
+                _lastSource = source;
                 added++;
             }
             catch
@@ -65,24 +69,20 @@ public sealed class ComicReaderState(IComicsService comicsService)
         return added;
     }
 
-    // Picks a source using the configured weights; the RSS group is skipped entirely once every feed is exhausted.
+    // Picks a random source, avoiding the previous one so consecutive comics come from different places.
     private (ComicEnum Source, string Label) PickSource()
     {
-        var activeRss = RssSources.Where(s => !_exhaustedRss.Contains(s.Source)).ToArray();
-        double rssWeight = activeRss.Length > 0 ? RssGroupWeight : 0;
-        double roll = Random.Shared.NextDouble() * (MemeWeight + XkcdWeight + rssWeight);
+        var available = EndlessSources
+            .Concat(RssSources.Where(s => !_exhaustedRss.Contains(s.Source)))
+            .ToArray();
 
-        if (roll < MemeWeight)
+        var choices = available.Where(s => s.Source != _lastSource).ToArray();
+        if (choices.Length == 0)
         {
-            return (ComicEnum.Memes, "Memes");
+            choices = available;
         }
 
-        if (roll < MemeWeight + XkcdWeight)
-        {
-            return (ComicEnum.Xkcd, "XKCD");
-        }
-
-        return activeRss[Random.Shared.Next(activeRss.Length)];
+        return choices[Random.Shared.Next(choices.Length)];
     }
 
     // Returns an unseen image URL from the feed, marking the source exhausted when nothing new remains.
