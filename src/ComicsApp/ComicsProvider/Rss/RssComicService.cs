@@ -17,20 +17,27 @@ public sealed partial class RssComicService
 
     public async Task<string> GetRandomImageAsync(string feedUrl, CancellationToken cancellationToken = default)
     {
+        var imageUrls = await GetAllImageUrlsAsync(feedUrl, cancellationToken);
+
+        return imageUrls.Count == 0
+            ? string.Empty
+            : imageUrls[Random.Shared.Next(imageUrls.Count)];
+    }
+
+    // Returns every distinct comic image URL found in the feed, so callers can de-duplicate across requests.
+    public async Task<IReadOnlyList<string>> GetAllImageUrlsAsync(string feedUrl, CancellationToken cancellationToken = default)
+    {
         var feed = await _httpClient.GetStringAsync(feedUrl, cancellationToken);
         var document = XDocument.Parse(feed);
 
-        var imageUrls = document
+        return document
             .Descendants("item")
             .Select(GetItemHtml)
             .Select(html => ImgSrcRegex().Match(html))
             .Where(match => match.Success)
             .Select(match => UpgradeToHttps(match.Groups[1].Value))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToList();
-
-        return imageUrls.Count == 0
-            ? string.Empty
-            : imageUrls[Random.Shared.Next(imageUrls.Count)];
     }
 
     // The comic markup lives in <description> for most feeds and in <content:encoded> for WordPress feeds.

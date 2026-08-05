@@ -41,4 +41,15 @@ public class ComicsService : IComicsService
         ComicEnum.Memes => _memeApiService.GetRandomImageAsync(),
         _ => throw new ArgumentOutOfRangeException(nameof(comic), comic, null)
     };
+
+    public Task<IReadOnlyList<string>> GetRssImageUrlsAsync(ComicEnum comic) => comic switch
+    {
+        ComicEnum.Smbc => _rssComicService.GetAllImageUrlsAsync(SmbcFeed),
+        ComicEnum.DinosaurComics => _rssComicService.GetAllImageUrlsAsync(DinosaurComicsFeed),
+        ComicEnum.PhdComics => _rssComicService.GetAllImageUrlsAsync(PhdComicsFeed),
+        ComicEnum.PoorlyDrawnLines => _rssComicService.GetAllImageUrlsAsync(PoorlyDrawnLinesFeed),
+        ComicEnum.WarAndPeas => _rssComicService.GetAllImageUrlsAsync(WarAndPeasFeed),
+        ComicEnum.PerryBibleFellowship => _rssComicService.GetAllImageUrlsAsync(PerryBibleFellowshipFeed),
+        _ => Task.FromResult<IReadOnlyList<string>>([])
+    };
 }
