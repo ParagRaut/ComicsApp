@@ -1,4 +1,5 @@
 :root {
+    color-scheme: light;
     --brand-900: #0f172a;
     --brand-800: #1e293b;
     --brand-700: #334155;
@@ -10,10 +11,30 @@
     --border: #e2e8f0;
     --text: #0f172a;
     --text-muted: #64748b;
+    --app-bar-bg: rgba(255, 255, 255, 0.8);
     --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -2px rgba(15, 23, 42, 0.1);
     --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
     --radius: 14px;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --brand-900: #f8fafc;
+    --brand-800: #e2e8f0;
+    --brand-700: #cbd5e1;
+    --accent: #818cf8;
+    --accent-hover: #a5b4fc;
+    --accent-soft: rgba(129, 140, 248, 0.16);
+    --surface: #1e293b;
+    --surface-muted: #0f172a;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --app-bar-bg: rgba(15, 23, 42, 0.8);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.55), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
 }
 
 html, body {
@@ -22,6 +43,38 @@ html, body {
     background-color: var(--surface-muted);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--accent-hover);
+    border-color: var(--accent);
+    background-color: var(--accent-soft);
+    transform: translateY(-1px);
+}
+
+.theme-toggle-icon::before {
+    content: "🌙";
+}
+
+[data-theme="dark"] .theme-toggle-icon::before {
+    content: "☀️";
 }
 
 h1, h2, h3, h4, h5 {

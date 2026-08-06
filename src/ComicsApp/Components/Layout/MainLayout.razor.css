@@ -8,7 +8,7 @@
     position: sticky;
     top: 0;
     z-index: 30;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--app-bar-bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
 }
@@ -53,6 +53,12 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .about-link {
