@@ -12,13 +12,13 @@ WORKDIR /src
 
 # Restore first (layer-cached) using only the files that affect restore.
 COPY Directory.Build.props Directory.Packages.props ./
-COPY src/ComicsApp/ComicsApp.csproj src/ComicsApp/
-RUN dotnet restore src/ComicsApp/ComicsApp.csproj
+COPY src/ComicsApp.csproj src/
+RUN dotnet restore src/ComicsApp.csproj
 
 # Copy the rest and publish. Publish re-runs restore (cached above) so the
 # framework static web assets under wwwroot/_framework (blazor.web.js) are emitted.
 COPY . .
-RUN dotnet publish src/ComicsApp/ComicsApp.csproj -c Release -o /app/publish
+RUN dotnet publish src/ComicsApp.csproj -c Release -o /app/publish
 
 # --- Runtime stage (no token baked in) ---
 FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION} AS runtime

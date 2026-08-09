@@ -18,7 +18,7 @@ git clone https://github.com/ParagRaut/ComicsApp.git
 cd ComicsApp
 dotnet restore
 dotnet build
-dotnet run --project src/ComicsApp
+dotnet run --project src/ComicsApp.csproj
 ```
 
 Feel free to create pull requests and enjoy comic strips :)
