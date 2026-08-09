@@ -3,6 +3,7 @@
     <ItemGroup>
       <PackageReference Include="Refit" />
       <PackageReference Include="Refit.HttpClientFactory" />
+      <PackageReference Include="Refit.Reflection" />
     </ItemGroup>
 
 </Project>
