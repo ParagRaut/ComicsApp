@@ -7,7 +7,6 @@
   <ItemGroup>
     <PackageVersion Include="Refit" Version="14.0.1" />
     <PackageVersion Include="Refit.HttpClientFactory" Version="14.0.1" />
-    <PackageVersion Include="Refit.Reflection" Version="14.0.1" />
   </ItemGroup>
 
 </Project>
