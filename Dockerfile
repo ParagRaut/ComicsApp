@@ -26,6 +26,9 @@ WORKDIR /app
 COPY --from=build /app/publish ./
 
 ENV ASPNETCORE_ENVIRONMENT=Production
+# Disable config file watching (FileSystemWatcher/inotify) to avoid exhausting
+# the host's low inotify instance limit on platforms like Render.
+ENV DOTNET_hostBuilder__reloadConfigOnChange=false
 EXPOSE 10000
 
 # Render provides $PORT at runtime; bind Kestrel to it (fallback for local runs).
