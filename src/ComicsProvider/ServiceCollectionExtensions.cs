@@ -17,11 +17,13 @@ public static class ServiceCollectionExtensions
         services.AddScoped<XKCDService>();
 
         // Some feeds (e.g. Poorly Drawn Lines) sit behind Cloudflare, which returns 403 for plain
-        // HTTP/1.1 requests. Defaulting to HTTP/2 (plus browser-like headers) is what gets through.
+        // HTTP/1.1 requests. Prefer HTTP/2 (plus browser-like headers) to get through, but use
+        // RequestVersionOrLower so ALPN still offers http/1.1 and falls back for HTTP/2-only-incapable
+        // servers such as pbfcomics.com (otherwise ALPN negotiation fails with no common protocol).
         services.AddHttpClient<RssComicService>(client =>
         {
             client.DefaultRequestVersion = HttpVersion.Version20;
-            client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
+            client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrLower;
             client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36");
             client.DefaultRequestHeaders.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("en-US,en;q=0.9");
@@ -32,7 +34,7 @@ public static class ServiceCollectionExtensions
         {
             client.BaseAddress = new Uri("https://meme-api.com/");
             client.DefaultRequestVersion = HttpVersion.Version20;
-            client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
+            client.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrLower;
             client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
         });

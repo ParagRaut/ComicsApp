@@ -18,7 +18,7 @@
     --radius: 14px;
 }
 
-[data-theme="dark"] {
+[data-bs-theme="dark"] {
     color-scheme: dark;
     --brand-900: #f8fafc;
     --brand-800: #e2e8f0;
@@ -73,7 +73,7 @@ html, body {
     content: "🌙";
 }
 
-[data-theme="dark"] .theme-toggle-icon::before {
+[data-bs-theme="dark"] .theme-toggle-icon::before {
     content: "☀️";
 }
 
