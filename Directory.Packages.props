@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Refit" Version="14.0.1" />
-    <PackageVersion Include="Refit.HttpClientFactory" Version="14.0.1" />
+    <PackageVersion Include="Refit" Version="15.1.0" />
+    <PackageVersion Include="Refit.HttpClientFactory" Version="15.1.0" />
   </ItemGroup>
 
 </Project>
